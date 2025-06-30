@@ -4,12 +4,12 @@
 
 ![Status](https://img.shields.io/static/v1?label=STATUS&message=IN%20PROGRESS&color=orange&style=for-the-badge)
 
-### Abstract 🧪
+## Abstract 🧪
 <p align="justify">
 Superconductivity is a physical phenomenon of great importance in various technological fields. However, the advancement and practical application of these technologies are still limited by the low Critical Temperature ($T_c$) values observed in most materials. This temperature corresponds to the point at which a material, when cooled, begins to exhibit characteristic superconducting properties—such as perfect diamagnetism and zero electrical resistance. Given that no comprehensive theory currently exists to explain this phenomenon across the full range of critical temperatures, computational techniques have been employed to predict materials with $T_c$ values near room temperature. In this context, the present project aims to generate relevant insights for the development of new superconducting materials through the use of Generalized Linear Models (GLM) and Generalized Additive Models (GAM)—approaches that remain underexplored in the literature and are inherently interpretable—combined with explainability techniques, such as SHAP, and data clustering methods.
 </p>
 
-### Requirements 📄
+## Requirements 📄
 <p align="justify">
 To use the notebooks available in this repository, prior knowledge of Python, statistics, and data science is required, as well as the use of a suitable code editor for this language. Editors like Visual Studio Code (VS Code) allow you to clone the repository for easier access to the files. Alternatively, the files can be downloaded directly from the repository.
 </p>
@@ -28,10 +28,10 @@ pip install interpret==0.6.9
 pip install pygam==0.9.1
 ```
 
-### Files 🗂️
+## Files 🗂️
 
-### References
-1] Wang FE. Superconductivity. In: Wang FE, editor. Bonding Theory for Metals and Alloys. Elsevier; 2005. p. 65-108. Acesso em: 27 abr. 2025. Available from: https://www.sciencedirect.com/science/article/pii/B9780444519788500076.
+## References
+[1] Wang FE. Superconductivity. In: Wang FE, editor. Bonding Theory for Metals and Alloys. Elsevier; 2005. p. 65-108. Acesso em: 27 abr. 2025. Available from: https://www.sciencedirect.com/science/article/pii/B9780444519788500076.
 
 [2] Costa MBS, Pavão AC. Supercondutividade: um século de desafios e superação. Revista Brasileira de Ensino de Física. 2012;34:2602–2615.
 
