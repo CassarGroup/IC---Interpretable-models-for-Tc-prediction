@@ -24,7 +24,7 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         self.distribution = distribution 
 
 
-    def fit(self, X, y, ):
+    def fit(self, X, y):
         self.X = X
         self.y = y
         # Fit the clustering algorithm
