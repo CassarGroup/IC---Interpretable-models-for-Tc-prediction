@@ -18,11 +18,13 @@ def load_dataset(): # Import the dataset from UCI repository
 
     return X, y
 
-class PerClusterClassifier(BaseEstimator, RegressorMixin):
-    def __init__(self, clusterer):
+class Clustering_GLM(BaseEstimator, RegressorMixin):
+    def __init__(self, clusterer, distribution):
         self.clusterer = clusterer
+        self.distribution = distribution 
 
-    def fit(self, X, y, distribution):
+
+    def fit(self, X, y, ):
         self.X = X
         self.y = y
         # Fit the clustering algorithm
@@ -30,7 +32,6 @@ class PerClusterClassifier(BaseEstimator, RegressorMixin):
         cluster_labels = self.clusterer_.fit_predict(X) # Use the fit/predict method for data clustering 
         self.cluster_labels_ = cluster_labels
         self.models_ = {}
-        self.distribution = distribution 
         # For each cluster, fit a supervised model
         for cluster in np.unique(cluster_labels): # identify the classes
             idx = np.where(cluster_labels == cluster)[0]
@@ -42,7 +43,7 @@ class PerClusterClassifier(BaseEstimator, RegressorMixin):
             # distribution = sm.families.Gamma(link=link_function)
             #X_cluster = sm.add_constant(X_cluster, has_constant='add')
 
-            model_glm = sm.GLM(y_cluster, X_cluster, family=distribution)
+            model_glm = sm.GLM(y_cluster, X_cluster, family=self.distribution)
 
             glm = model_glm.fit()
 
