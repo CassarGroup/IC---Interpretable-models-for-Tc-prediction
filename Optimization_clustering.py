@@ -29,29 +29,80 @@ def create_instance(trial):
     #     min_samples = trial.suggest_int("min_samples", 3, 10)
     #     clusterer = DBSCAN(eps=eps, min_samples=min_samples)
 
-    distribution_name = trial.suggest_categorical("distribution", ["gamma", "gaussian"])
-    
+    distribution_name = trial.suggest_categorical(
+        "distribution", ["gamma", "gaussian", "inverse_gaussian"]
+    )
+
+    link_name = trial.suggest_categorical(
+        "link", ["log", "identity", "inverse", "inverse_squared"]
+    )
+
     link = {
         "log": sm.families.links.Log(),
         "identity": sm.families.links.Identity(),
         "inverse": sm.families.links.InversePower(),
-    }   
+        "inverse_squared": sm.families.links.InverseSquared()
+    }
+
+    # if distribution_name == "gamma":
+    #     if link_name != "log":
+    #         raise optuna.exceptions.TrialPruned()  
+    #     family = sm.families.Gamma(link=link[link_name])
+    
+    # elif distribution_name == "gaussian":
+    #     if link_name not in ["identity", "log"]:
+    #         raise optuna.exceptions.TrialPruned()
+    #     family = sm.families.Gaussian(link=link[link_name])
+
+    # elif distribution_name == "inverse_gaussian":
+    #     if link_name not in ["log", "inverse_squared"]:
+    #         raise optuna.exceptions.TrialPruned()
+    #     family = sm.families.InverseGaussian(link=link[link_name])
+    
+    # elif distribution_name == "tweedie":
+    #     if link_name != "log":
+    #         raise optuna.exceptions.TrialPruned()
+    #     family = sm.families.Tweedie(link=link[link_name], var_power=1.5)
     
     if distribution_name == "gamma":
-        link_name = trial.suggest_categorical("link", ["identity", "log"])  
-        family = sm.families.Gamma(link=link[link_name])
+        # Gamma aceita só link log
+        if link_name != "log":
+            raise optuna.exceptions.TrialPruned()
+        family = sm.families.Gamma(link=link["log"])
+
     elif distribution_name == "gaussian":
-        link_name = trial.suggest_categorical("link", ["identity", "log"])
+        # Gaussian pode aceitar identity e log
+        if link_name not in ["identity", "log"]:
+            raise optuna.exceptions.TrialPruned()
         family = sm.families.Gaussian(link=link[link_name])
 
-    return Clustering_GLM(clusterer, distribution=family)
+    elif distribution_name == "inverse_gaussian":
+        # Inverse Gaussian aceita log e inverse_squared
+        if link_name not in ["log", "inverse_squared"]:
+            raise optuna.exceptions.TrialPruned()
+        family = sm.families.InverseGaussian(link=link[link_name])
+
+    # elif distribution_name == "tweedie":
+    #     # Tweedie só com link log
+    #     if link_name != "log":
+    #         raise optuna.exceptions.TrialPruned()
+    #     family = sm.families.Tweedie(link=link["log"], var_power=1.5)
+
+
+    return Clustering_GLM(clusterer=clusterer, distribution=family)
+
 
 
 def make_objective(X_train, y_train):
     """Calculates the objective function"""
     def objective(trial):
         model = create_instance(trial)
-        model.fit(X_train, y_train)
+        try:
+            model.fit(X_train, y_train)
+        except (ValueError, FloatingPointError):
+            raise optuna.exceptions.TrialPruned()
+
+        #model.fit(X_train, y_train)
         return model.cross_validation()["Mean"]
     return objective
 
@@ -59,8 +110,8 @@ def optimization(X_train, y_train):
     """Make the Optuna study"""
     clusters_study = create_study(
             direction="minimize",
-            study_name="optimization_clusters_glm11",
-            storage=f"sqlite:///optimization_clusters_glm11.db",
+            study_name="optimization_clusters_glm_teste31",
+            storage=f"sqlite:///optimization_clusters_glm_teste31.db",
             load_if_exists=True,
         )
 
@@ -72,21 +123,4 @@ def optimization(X_train, y_train):
     parameters_best_trial = best_trial.params
     return parameters_best_trial
 
-
-superconductivty_data = fetch_ucirepo(id=464)
-
-X = superconductivty_data.data.features
-y = superconductivty_data.data.targets
-
-
-X_test, X_train, y_test, y_train = train_test_split(X, y, test_size=0.9, random_state=1702)
-
-scaler_X = StandardScaler()
-X_train = scaler_X.fit_transform(X_train)
-X_test = scaler_X.transform(X_test)
-
-y_test = (np.clip(y_train, 1e-6, None)).values
-
-y_train = (np.clip(y_train, 1e-6, None)).values
-optimization(X_train, y_train)
 
