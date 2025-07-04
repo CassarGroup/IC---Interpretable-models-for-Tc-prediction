@@ -33,10 +33,18 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         self.cluster_labels_ = cluster_labels
         self.models_ = {}
         # For each cluster, fit a supervised model
+        self.data_by_cluster_ = {}  
+
         for cluster in np.unique(cluster_labels): # identify the classes
             idx = np.where(cluster_labels == cluster)[0]
-            X_cluster = X.iloc[idx]
-            y_cluster = y.iloc[idx]
+            X_cluster = X[idx]
+            y_cluster = y[idx]
+            
+            self.data_by_cluster_[cluster] = {
+                    "X": X_cluster,
+                    "y": y_cluster,
+                    "indices": idx
+                }
             
             # link_function = sm.families.links.Log()
 
@@ -58,14 +66,14 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         for cluster in np.unique(cluster_labels):
             idx = np.where(cluster_labels == cluster)[0]
             if cluster in self.models_:
-                y_pred[idx] = self.models_[cluster].predict(X.iloc[idx])
+                y_pred[idx] = self.models_[cluster].predict(X[idx])
             else:
                 y_pred[idx] = np.nan
         return y_pred
     
     def rmse(self, X, y):
         y_pred = list(self.predict(X))
-        y_true = list(y.values)
+        y_true = list(y)
         rmse = 0
         for t, p in zip(y_true, y_pred):
             rmse += (t-p) ** 2
@@ -79,16 +87,16 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         for cluster in np.unique(cluster_labels):
             # Cross validation for each cluster
             idx = np.where(cluster_labels == cluster)[0]
-            X_cluster = self.X.iloc[idx]
+            X_cluster = self.X[idx]
             #X_cluster = sm.add_constant(X_cluster, has_constant='add')
-            y_cluster = self.y.iloc[idx]
+            y_cluster = self.y[idx]
 
             kf = KFold(n_splits=n_splits, shuffle=True, random_state=random_seed)
             cluster_rmse = [] # RMSE only for the cluster
 
             for train_idx, test_idx in kf.split(X_cluster):
-                X_train, X_test = X_cluster.iloc[train_idx], X_cluster.iloc[test_idx]
-                y_train, y_test = y_cluster.iloc[train_idx], y_cluster.iloc[test_idx]
+                X_train, X_test = X_cluster[train_idx], X_cluster[test_idx]
+                y_train, y_test = y_cluster[train_idx], y_cluster[test_idx]
                 
                 # Training a new GLM model for each cluster
                 model_glm = sm.GLM(y_train, X_train, family=self.distribution)
@@ -98,7 +106,7 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
                 y_pred = glm.predict(X_test)
 
                 # Calculate RMSE
-                rmse = root_mean_squared_error(y_test.values, y_pred)
+                rmse = root_mean_squared_error(y_test, y_pred)
                 cluster_rmse.append(rmse)
 
             all_rmse[cluster] = np.mean(cluster_rmse)
