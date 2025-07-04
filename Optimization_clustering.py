@@ -8,6 +8,13 @@ from optuna import create_study
 from script_glm import Clustering_GLM
 import statsmodels.api as sm
 
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+from ucimlrepo import fetch_ucirepo
+
+import numpy as np
+
 def create_instance(trial):
     """Create a instance of Clustering_GLM"""
     
@@ -64,3 +71,22 @@ def optimization(X_train, y_train):
 
     parameters_best_trial = best_trial.params
     return parameters_best_trial
+
+
+superconductivty_data = fetch_ucirepo(id=464)
+
+X = superconductivty_data.data.features
+y = superconductivty_data.data.targets
+
+
+X_test, X_train, y_test, y_train = train_test_split(X, y, test_size=0.9, random_state=1702)
+
+scaler_X = StandardScaler()
+X_train = scaler_X.fit_transform(X_train)
+X_test = scaler_X.transform(X_test)
+
+y_test = (np.clip(y_train, 1e-6, None)).values
+
+y_train = (np.clip(y_train, 1e-6, None)).values
+optimization(X_train, y_train)
+
