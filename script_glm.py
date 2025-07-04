@@ -5,6 +5,8 @@ from ucimlrepo import fetch_ucirepo
 import statsmodels.api as sm
 from sklearn.model_selection import KFold
 from sklearn.metrics import root_mean_squared_error
+from sklearn.preprocessing import StandardScaler
+
 
 random_seed = 1203
 
@@ -23,44 +25,50 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         self.clusterer = clusterer
         self.distribution = distribution 
 
-
     def fit(self, X, y):
+    
+        self.scaler_X_ = StandardScaler()
+        X = self.scaler_X_.fit_transform(X)
         self.X = X
+        
         self.y = y
+        
         # Fit the clustering algorithm
         self.clusterer_ = clone(self.clusterer) # Construct a new unfitted estimator with the same parameters for each entrance 
         cluster_labels = self.clusterer_.fit_predict(X) # Use the fit/predict method for data clustering 
         self.cluster_labels_ = cluster_labels
+        
+        unique_clusters = np.unique(cluster_labels)
+        valid_clusters = [c for c in unique_clusters if c != -1]
+        
+        
         self.models_ = {}
         # For each cluster, fit a supervised model
         self.data_by_cluster_ = {}  
 
-        for cluster in np.unique(cluster_labels): # identify the classes
+        for cluster in valid_clusters: # identify the classes
             idx = np.where(cluster_labels == cluster)[0]
             X_cluster = X[idx]
             y_cluster = y[idx]
+            y_cluster = np.clip(y_cluster, 1e-6, np.inf)
+
             
             self.data_by_cluster_[cluster] = {
                     "X": X_cluster,
                     "y": y_cluster,
                     "indices": idx
                 }
-            
-            # link_function = sm.families.links.Log()
-
-            # distribution = sm.families.Gamma(link=link_function)
-            #X_cluster = sm.add_constant(X_cluster, has_constant='add')
-
             model_glm = sm.GLM(y_cluster, X_cluster, family=self.distribution)
 
             glm = model_glm.fit()
 
             self.models_[cluster] = glm
+            
         return self
 
     def predict(self, X):
         # Assign clusters to new data
-        #X = sm.add_constant(X, has_constant='add')
+        X = self.scaler_X_.transform(X)
         cluster_labels = self.clusterer_.predict(X)
         y_pred = np.empty(X.shape[0])
         for cluster in np.unique(cluster_labels):
@@ -81,38 +89,31 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         return rmse
     
     def cross_validation(self, n_splits=5):
-        cluster_labels = self.clusterer_.predict(self.X) # predict only the label of the entrance
         all_rmse = {}
 
-        for cluster in np.unique(cluster_labels):
-            # Cross validation for each cluster
-            idx = np.where(cluster_labels == cluster)[0]
-            X_cluster = self.X[idx]
-            #X_cluster = sm.add_constant(X_cluster, has_constant='add')
-            y_cluster = self.y[idx]
+        kf = KFold(n_splits=n_splits, shuffle=True, random_state=random_seed)
+        cluster_rmse = [] # RMSE only for the cluster
+        split = 0
+        for train_idx, test_idx in kf.split(self.X):
+            X_train, X_test = self.X[train_idx], self.X[test_idx]
+            y_train, y_test = self.y[train_idx], self.y[test_idx]
+            
+            model = Clustering_GLM(clusterer=clone(self.clusterer), distribution=self.distribution)
+            model.fit(X_train, y_train)
+                                
+            # Make the prediction
+            y_pred = model.predict(X_test)
 
-            kf = KFold(n_splits=n_splits, shuffle=True, random_state=random_seed)
-            cluster_rmse = [] # RMSE only for the cluster
+            # Calculate RMSE
+            rmse = root_mean_squared_error(y_test, y_pred)
+            cluster_rmse.append(rmse)
 
-            for train_idx, test_idx in kf.split(X_cluster):
-                X_train, X_test = X_cluster[train_idx], X_cluster[test_idx]
-                y_train, y_test = y_cluster[train_idx], y_cluster[test_idx]
-                
-                # Training a new GLM model for each cluster
-                model_glm = sm.GLM(y_train, X_train, family=self.distribution)
-                glm = model_glm.fit()
-
-                # Make the prediction
-                y_pred = glm.predict(X_test)
-
-                # Calculate RMSE
-                rmse = root_mean_squared_error(y_test, y_pred)
-                cluster_rmse.append(rmse)
-
-            all_rmse[cluster] = np.mean(cluster_rmse)
-        cluster_values = list(all_rmse.values())
-        all_rmse["Mean"] = st.mean(cluster_values)
-        all_rmse["Median"] = st.median(cluster_values)
+            all_rmse[split] = np.mean(cluster_rmse)
+            split+=1
+            
+        fold_values = list(all_rmse.values())
+        all_rmse["Mean"] = st.mean(fold_values)
+        all_rmse["Median"] = st.median(fold_values)
         
         return all_rmse
 
