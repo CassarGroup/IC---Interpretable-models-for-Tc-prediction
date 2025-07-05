@@ -24,31 +24,45 @@ def create_instance(trial):
         n_clusters = trial.suggest_int("n_clusters", 1, 10)
         clusterer = KMeans(n_clusters=n_clusters, init='k-means++')
         
-    # else:
-    #     eps = trial.suggest_float("eps", 0.05, 1.0)
-    #     min_samples = trial.suggest_int("min_samples", 3, 10)
-    #     clusterer = DBSCAN(eps=eps, min_samples=min_samples)
+    else:
+        eps = trial.suggest_float("eps", 0.05, 1.0)
+        min_samples = trial.suggest_int("min_samples", 3, 10)
+        clusterer = DBSCAN(eps=eps, min_samples=min_samples)
 
     distribution_name = trial.suggest_categorical(
         "distribution", ["gamma", "gaussian", "inverse_gaussian"]
     )
-
-    link_name = trial.suggest_categorical(
-        "link", ["log", "identity", "inverse", "inverse_squared"]
-    )
-
+    
     link = {
         "log": sm.families.links.Log(),
         "identity": sm.families.links.Identity(),
         "inverse": sm.families.links.InversePower(),
         "inverse_squared": sm.families.links.InverseSquared()
     }
+      
+    if distribution_name == "gamma":
+        link_name = "log"
+        family = sm.families.Gamma(link=link["log"])
+                                   
+    elif distribution_name == "gaussian":
+        link_name = trial.suggest_categorical("link_gaussian", ["identity", "log"])
+        family = sm.families.Gaussian(link=link[link_name])
+    
+    elif distribution_name == "inverse_gaussian":
+        link_name = trial.suggest_categorical("link_inverse_gaussian", ["log", "inverse_squared"])
+        family = sm.families.InverseGaussian(link=link[link_name])
+        
+
+    # link_name = trial.suggest_categorical(
+    #     "link", ["log", "identity", "inverse", "inverse_squared"]
+    # )
+
 
     # if distribution_name == "gamma":
     #     if link_name != "log":
-    #         raise optuna.exceptions.TrialPruned()  
-    #     family = sm.families.Gamma(link=link[link_name])
-    
+    #         raise optuna.exceptions.TrialPruned()
+    #     family = sm.families.Gamma(link=link["log"])
+
     # elif distribution_name == "gaussian":
     #     if link_name not in ["identity", "log"]:
     #         raise optuna.exceptions.TrialPruned()
@@ -58,29 +72,6 @@ def create_instance(trial):
     #     if link_name not in ["log", "inverse_squared"]:
     #         raise optuna.exceptions.TrialPruned()
     #     family = sm.families.InverseGaussian(link=link[link_name])
-    
-    # elif distribution_name == "tweedie":
-    #     if link_name != "log":
-    #         raise optuna.exceptions.TrialPruned()
-    #     family = sm.families.Tweedie(link=link[link_name], var_power=1.5)
-    
-    if distribution_name == "gamma":
-        # Gamma aceita só link log
-        if link_name != "log":
-            raise optuna.exceptions.TrialPruned()
-        family = sm.families.Gamma(link=link["log"])
-
-    elif distribution_name == "gaussian":
-        # Gaussian pode aceitar identity e log
-        if link_name not in ["identity", "log"]:
-            raise optuna.exceptions.TrialPruned()
-        family = sm.families.Gaussian(link=link[link_name])
-
-    elif distribution_name == "inverse_gaussian":
-        # Inverse Gaussian aceita log e inverse_squared
-        if link_name not in ["log", "inverse_squared"]:
-            raise optuna.exceptions.TrialPruned()
-        family = sm.families.InverseGaussian(link=link[link_name])
 
     # elif distribution_name == "tweedie":
     #     # Tweedie só com link log
@@ -91,27 +82,25 @@ def create_instance(trial):
 
     return Clustering_GLM(clusterer=clusterer, distribution=family)
 
-
-
 def make_objective(X_train, y_train):
     """Calculates the objective function"""
     def objective(trial):
         model = create_instance(trial)
         try:
-            model.fit(X_train, y_train)
+            model.fit(X_train, y_train)  # ← pode falhar
+            score = model.cross_validation(X_train, y_train)["Mean"] 
         except (ValueError, FloatingPointError):
             raise optuna.exceptions.TrialPruned()
-
-        #model.fit(X_train, y_train)
-        return model.cross_validation()["Mean"]
+        return score
     return objective
+
 
 def optimization(X_train, y_train):
     """Make the Optuna study"""
     clusters_study = create_study(
             direction="minimize",
-            study_name="optimization_clusters_glm_teste31",
-            storage=f"sqlite:///optimization_clusters_glm_teste31.db",
+            study_name="optimization_clusters_glm_teste37",
+            storage=f"sqlite:///optimization_clusters_glm_teste37.db",
             load_if_exists=True,
         )
 

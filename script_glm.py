@@ -88,15 +88,19 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         rmse = (rmse/ len(y)) ** (1/2)
         return rmse
     
-    def cross_validation(self, n_splits=5):
+    def cross_validation(self, X, y, n_splits=5):
+        
+        scaler_X_ = StandardScaler()
+        X = scaler_X_.fit_transform(X)
+        
         all_rmse = {}
 
         kf = KFold(n_splits=n_splits, shuffle=True, random_state=random_seed)
         cluster_rmse = [] # RMSE only for the cluster
         split = 0
-        for train_idx, test_idx in kf.split(self.X):
-            X_train, X_test = self.X[train_idx], self.X[test_idx]
-            y_train, y_test = self.y[train_idx], self.y[test_idx]
+        for train_idx, test_idx in kf.split(X):
+            X_train, X_test = X[train_idx], X[test_idx]
+            y_train, y_test = y[train_idx], y[test_idx]
             
             model = Clustering_GLM(clusterer=clone(self.clusterer), distribution=self.distribution)
             model.fit(X_train, y_train)
