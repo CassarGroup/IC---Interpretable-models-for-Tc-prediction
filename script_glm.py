@@ -1,14 +1,13 @@
 import statistics as st
 
 import numpy as np
+import pandas as pd
 import statsmodels.api as sm
 from sklearn.base import BaseEstimator, RegressorMixin, clone
 from sklearn.metrics import root_mean_squared_error
 from sklearn.model_selection import KFold
 from sklearn.preprocessing import StandardScaler
 from ucimlrepo import fetch_ucirepo
-
-random_seed = 1203
 
 
 def load_dataset():
@@ -33,7 +32,8 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         """Ajustando um modelo para cada cluster"""
 
         self.scaler_X_ = StandardScaler()
-        X = self.scaler_X_.fit_transform(X)
+        X_scaled = self.scaler_X_.fit_transform(X)
+        X = pd.DataFrame(X_scaled, columns=X.columns, index=X.index)
 
         self.X = X
         self.y = y
@@ -55,9 +55,9 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
 
         for cluster in valid_clusters:  # identify the classes
             idx = np.where(cluster_labels == cluster)[0]
-            X_cluster = X[idx]
-            y_cluster = y[idx]
-            y_cluster = np.clip(y_cluster, 1e-6, np.inf)
+
+            X_cluster = X.iloc[idx]
+            y_cluster = y.iloc[idx]
 
             self.data_by_cluster_[cluster] = {
                 "X": X_cluster,
@@ -89,7 +89,7 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         return y_pred
 
     def rmse(self, X, y):
-        # TODO: alterar para um cálculo vetorial com sklearn
+        # TODO: precisa de uma função específica ou podemos usar a do sklearn?
 
         y_pred = list(self.predict(X))
         y_true = list(y)
@@ -99,39 +99,31 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         rmse = (rmse / len(y)) ** (1 / 2)
         return rmse
 
-    def cross_validation(self, X, y, n_splits=5):
-        """Realiza validação cruzada com clusterização"""
 
-        scaler_X_ = StandardScaler()
-        X = scaler_X_.fit_transform(X)
+def cross_validation(X, y, clusterer, distribution, random_seed=1203, n_splits=5):
+    """Realiza validação cruzada com clusterização"""
 
-        all_rmse = {}
+    kf = KFold(n_splits=n_splits, shuffle=True, random_state=random_seed)
 
-        kf = KFold(n_splits=n_splits, shuffle=True, random_state=random_seed)
-        cluster_rmse = []  # RMSE only for the cluster
-        split = 0
+    cluster_rmse = []
+    all_rmse = {}
 
-        for train_idx, test_idx in kf.split(X):
-            X_train, X_test = X[train_idx], X[test_idx]
-            y_train, y_test = y[train_idx], y[test_idx]
+    for split, (train_idx, test_idx) in enumerate(kf.split(X)):
+        X_train, X_test = X.iloc[train_idx], X.iloc[test_idx]
+        y_train, y_test = y.iloc[train_idx], y.iloc[test_idx]
 
-            model = Clustering_GLM(
-                clusterer=clone(self.clusterer), distribution=self.distribution
-            )
-            model.fit(X_train, y_train)
+        model = Clustering_GLM(clusterer=clone(clusterer), distribution=distribution)
+        model.fit(X_train, y_train)
 
-            # Make the prediction
-            y_pred = model.predict(X_test)
+        y_pred = model.predict(X_test)
 
-            # Calculate RMSE
-            rmse = root_mean_squared_error(y_test, y_pred)
-            cluster_rmse.append(rmse)
+        rmse = root_mean_squared_error(y_test, y_pred)
+        cluster_rmse.append(rmse)
 
-            all_rmse[split] = np.mean(cluster_rmse)
-            split += 1
+        all_rmse[split] = np.mean(cluster_rmse)
 
-        fold_values = list(all_rmse.values())
-        all_rmse["Mean"] = st.mean(fold_values)
-        all_rmse["Median"] = st.median(fold_values)
+    fold_values = list(all_rmse.values())
+    all_rmse["Mean"] = st.mean(fold_values)
+    all_rmse["Median"] = st.median(fold_values)
 
-        return all_rmse
+    return all_rmse
