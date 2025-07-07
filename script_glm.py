@@ -1,17 +1,19 @@
-import numpy as np
 import statistics as st
-from sklearn.base import BaseEstimator, RegressorMixin, clone
-from ucimlrepo import fetch_ucirepo
-import statsmodels.api as sm
-from sklearn.model_selection import KFold
-from sklearn.metrics import root_mean_squared_error
-from sklearn.preprocessing import StandardScaler
 
+import numpy as np
+import statsmodels.api as sm
+from sklearn.base import BaseEstimator, RegressorMixin, clone
+from sklearn.metrics import root_mean_squared_error
+from sklearn.model_selection import KFold
+from sklearn.preprocessing import StandardScaler
+from ucimlrepo import fetch_ucirepo
 
 random_seed = 1203
 
 
-def load_dataset():  # Import the dataset from UCI repository
+def load_dataset():
+    """Import the dataset from UCI repository"""
+
     # Import dataset
     superconductivty_data = fetch_ucirepo(id=464)
 
@@ -28,26 +30,26 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         self.distribution = distribution
 
     def fit(self, X, y):
+        """Ajustando um modelo para cada cluster"""
 
         self.scaler_X_ = StandardScaler()
         X = self.scaler_X_.fit_transform(X)
-        self.X = X
 
+        self.X = X
         self.y = y
 
         # Fit the clustering algorithm
-        self.clusterer_ = clone(
-            self.clusterer
-        )  # Construct a new unfitted estimator with the same parameters for each entrance
-        cluster_labels = self.clusterer_.fit_predict(
-            X
-        )  # Use the fit/predict method for data clustering
+        self.clusterer_ = clone(self.clusterer)
+
+        cluster_labels = self.clusterer_.fit_predict(X)
+
         self.cluster_labels_ = cluster_labels
 
         unique_clusters = np.unique(cluster_labels)
         valid_clusters = [c for c in unique_clusters if c != -1]
 
         self.models_ = {}
+
         # For each cluster, fit a supervised model
         self.data_by_cluster_ = {}
 
@@ -62,8 +64,8 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
                 "y": y_cluster,
                 "indices": idx,
             }
-            model_glm = sm.GLM(y_cluster, X_cluster, family=self.distribution)
 
+            model_glm = sm.GLM(y_cluster, X_cluster, family=self.distribution)
             glm = model_glm.fit()
 
             self.models_[cluster] = glm
@@ -71,19 +73,24 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         return self
 
     def predict(self, X):
-        # Assign clusters to new data
+        """Realiza previsão considerando cada cluster"""
+
         X = self.scaler_X_.transform(X)
         cluster_labels = self.clusterer_.predict(X)
-        y_pred = np.empty(X.shape[0])
+        y_pred = np.zeros(X.shape[0])
+
         for cluster in np.unique(cluster_labels):
             idx = np.where(cluster_labels == cluster)[0]
             if cluster in self.models_:
                 y_pred[idx] = self.models_[cluster].predict(X[idx])
             else:
                 y_pred[idx] = np.nan
+
         return y_pred
 
     def rmse(self, X, y):
+        # TODO: alterar para um cálculo vetorial com sklearn
+
         y_pred = list(self.predict(X))
         y_true = list(y)
         rmse = 0
@@ -93,6 +100,7 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         return rmse
 
     def cross_validation(self, X, y, n_splits=5):
+        """Realiza validação cruzada com clusterização"""
 
         scaler_X_ = StandardScaler()
         X = scaler_X_.fit_transform(X)
@@ -102,6 +110,7 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         kf = KFold(n_splits=n_splits, shuffle=True, random_state=random_seed)
         cluster_rmse = []  # RMSE only for the cluster
         split = 0
+
         for train_idx, test_idx in kf.split(X):
             X_train, X_test = X[train_idx], X[test_idx]
             y_train, y_test = y[train_idx], y[test_idx]
