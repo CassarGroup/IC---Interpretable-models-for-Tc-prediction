@@ -88,24 +88,12 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
 
         return y_pred
 
-    def rmse(self, X, y):
-        # TODO: precisa de uma função específica ou podemos usar a do sklearn?
-
-        y_pred = list(self.predict(X))
-        y_true = list(y)
-        rmse = 0
-        for t, p in zip(y_true, y_pred):
-            rmse += (t - p) ** 2
-        rmse = (rmse / len(y)) ** (1 / 2)
-        return rmse
-
 
 def cross_validation(X, y, clusterer, distribution, random_seed=1203, n_splits=5):
     """Realiza validação cruzada com clusterização"""
 
     kf = KFold(n_splits=n_splits, shuffle=True, random_state=random_seed)
 
-    cluster_rmse = []
     all_rmse = {}
 
     for split, (train_idx, test_idx) in enumerate(kf.split(X)):
@@ -118,10 +106,9 @@ def cross_validation(X, y, clusterer, distribution, random_seed=1203, n_splits=5
         y_pred = model.predict(X_test)
 
         rmse = root_mean_squared_error(y_test, y_pred)
-        cluster_rmse.append(rmse)
 
-        all_rmse[split] = np.mean(cluster_rmse)
-
+        all_rmse[split] = rmse
+        
     fold_values = list(all_rmse.values())
     all_rmse["Mean"] = st.mean(fold_values)
     all_rmse["Median"] = st.median(fold_values)
