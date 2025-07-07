@@ -5,25 +5,36 @@ sys.path.append(
 )
 
 
-from sklearn.cluster import (
-    KMeans,
-    AffinityPropagation,
-    MeanShift,
-    BisectingKMeans,
-    Birch,
-)
-import optuna
-from optuna import create_study
-
-from script_glm import Clustering_GLM
-import statsmodels.api as sm
-
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-
-from ucimlrepo import fetch_ucirepo
+import os
+import pickle
 
 import numpy as np
+import optuna
+import statsmodels.api as sm
+from optuna import create_study
+from sklearn.cluster import (
+    AffinityPropagation,
+    Birch,
+    BisectingKMeans,
+    KMeans,
+    MeanShift,
+)
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from statsmodels.genmod.families.links import (
+    Identity,
+    InversePower,
+    InverseSquared,
+    Log,
+)
+from ucimlrepo import fetch_ucirepo
+
+from script_glm import Clustering_GLM, cross_validation
+
+TEST_SIZE = 0.9
+NUM_FOLDS = 5
+N_TRIALS = 100
+DATA_FILE = "superconductivity_data.pkl"
 
 
 def create_instance(trial):
@@ -36,7 +47,11 @@ def create_instance(trial):
 
     if clusterer_type == "kmeans":
         n_clusters = trial.suggest_int("n_clusters", 1, 10)
-        clusterer = KMeans(n_clusters=n_clusters, init="k-means++", random_state=1203)
+        clusterer = KMeans(
+            n_clusters=n_clusters,
+            init="k-means++",
+            random_state=1203,
+        )
 
     elif clusterer_type == "affinity_propagation":
         damping = trial.suggest_float("damping", 0.5, 1.0)
@@ -71,25 +86,25 @@ def create_instance(trial):
     )
 
     link = {
-        "log": sm.families.links.Log(),
-        "identity": sm.families.links.Identity(),
-        "inverse": sm.families.links.InversePower(),
-        "inverse_squared": sm.families.links.InverseSquared(),
+        "log": Log,
+        "identity": Identity,
+        "inverse": InversePower,
+        "inverse_squared": InverseSquared,
     }
 
     if distribution_name == "gamma":
         link_name = "log"
-        family = sm.families.Gamma(link=link["log"])
+        family = sm.families.Gamma(link=link["log"]())
 
     elif distribution_name == "gaussian":
         link_name = trial.suggest_categorical("link_gaussian", ["identity", "log"])
-        family = sm.families.Gaussian(link=link[link_name])
+        family = sm.families.Gaussian(link=link[link_name]())
 
     elif distribution_name == "inverse_gaussian":
         link_name = trial.suggest_categorical(
             "link_inverse_gaussian", ["log", "inverse_squared"]
         )
-        family = sm.families.InverseGaussian(link=link[link_name])
+        family = sm.families.InverseGaussian(link=link[link_name]())
 
     return Clustering_GLM(clusterer=clusterer, distribution=family)
 
@@ -99,11 +114,19 @@ def make_objective(X_train, y_train):
 
     def objective(trial):
         model = create_instance(trial)
+
         try:
-            model.fit(X_train, y_train)
-            score = model.cross_validation(X_train, y_train)["Mean"]
-        except (ValueError, FloatingPointError):
+            score = cross_validation(
+                X_train,
+                y_train,
+                model.clusterer,
+                model.distribution,
+                n_splits=NUM_FOLDS,
+            )["Mean"]
+
+        except ValueError:  # , FloatingPointError):
             raise optuna.exceptions.TrialPruned()
+
         return score
 
     return objective
@@ -111,16 +134,17 @@ def make_objective(X_train, y_train):
 
 def optimization(X_train, y_train):
     """Make the Optuna study"""
+
     clusters_study = create_study(
         direction="minimize",
-        study_name="optimization_clusters_glm_teste43",
-        storage=f"sqlite:///optimization_clusters_glm_teste43.db",
+        study_name="optimization_clusters_glm_teste44",
+        storage=f"sqlite:///optimization_clusters_glm_teste44.db",
         load_if_exists=True,
         sampler=optuna.samplers.RandomSampler(),
     )
 
     objective_fn = make_objective(X_train, y_train)
-    clusters_study.optimize(objective_fn, n_trials=100)
+    clusters_study.optimize(objective_fn, n_trials=N_TRIALS)
 
     best_trial = clusters_study.best_trial
 
@@ -128,18 +152,25 @@ def optimization(X_train, y_train):
     return parameters_best_trial
 
 
-superconductivty_data = fetch_ucirepo(id=464)
+if __name__ == "__main__":
 
-# Data (dataframe)
-X = superconductivty_data.data.features
-y = superconductivty_data.data.targets
+    # Loading data
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, "rb") as f:
+            superconductivity_data = pickle.load(f)
+    else:
+        superconductivity_data = fetch_ucirepo(id=464)
+        with open(DATA_FILE, "wb") as f:
+            pickle.dump(superconductivity_data, f)
 
+    # Data treatment and splitting
+    X = superconductivity_data.data.features
+    y = superconductivity_data.data.targets
+    X_test, X_train, y_test, y_train = train_test_split(
+        X, y, test_size=TEST_SIZE, random_state=1702
+    )
+    y_test = np.clip(y_test, 1e-6, None)
+    y_train = np.clip(y_train, 1e-6, None)
 
-X_test, X_train, y_test, y_train = train_test_split(
-    X, y, test_size=0.9, random_state=1702
-)
-
-y_test = (np.clip(y_test, 1e-6, None)).values
-
-y_train = (np.clip(y_train, 1e-6, None)).values
-resultado = optimization(X_train, y_train)
+    # Optimization
+    resultado = optimization(X_train, y_train)
