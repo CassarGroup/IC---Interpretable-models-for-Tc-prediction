@@ -30,15 +30,16 @@ from statsmodels.genmod.families.links import (
 )
 from ucimlrepo import fetch_ucirepo
 
-from script_glm import Clustering_GLM, cross_validation
+from script_gam import Clustering_GAM, train_validation
+
+
+now = time.localtime()
+data = time.strftime("%d_%m_%Y_%H_%M_%S", now)
 
 TEST_SIZE = 0.9
 NUM_FOLDS = 5
 N_TRIALS = 100
 DATA_FILE = "superconductivity_data.pkl"
-
-now = time.localtime()
-data = time.strftime("%d_%m_%Y_%H_%M_%S", now)
 
 
 def create_instance(trial):
@@ -86,32 +87,30 @@ def create_instance(trial):
         )
 
     distribution_name = trial.suggest_categorical(
-        "distribution", ["gamma", "gaussian", "inverse_gaussian"]
+        "distribution", ["gamma", "normal", "inv_gauss"]
     )
-
-    link = {
-        "log": Log,
-        "identity": Identity,
-        "inverse": InversePower,
-        "inverse_squared": InverseSquared,
-    }
 
     if distribution_name == "gamma":
         link_name = "log"
-        family = sm.families.Gamma(link=link["log"]())
 
-    elif distribution_name == "gaussian":
-        link_name = trial.suggest_categorical("link_gaussian", ["identity", "log"])
-        family = sm.families.Gaussian(link=link[link_name]())
+    elif distribution_name == "normal":
+        link_name = trial.suggest_categorical(
+            "link_gaussian", ["identity", "log"]
+        )
 
-    elif distribution_name == "inverse_gaussian":
+    elif distribution_name == "inv_gauss":
         link_name = trial.suggest_categorical(
             "link_inverse_gaussian", ["log", "inverse_squared"]
         )
-        family = sm.families.InverseGaussian(link=link[link_name]())
-
-    return Clustering_GLM(clusterer=clusterer, distribution=family)
-
+    
+    lam = trial.suggest_float("lam", 1e-2, 1e2, log=True)
+    n_splines = trial.suggest_int("n_splines", 5, 25)
+    
+    return Clustering_GAM(clusterer=clusterer, 
+                          distribution=distribution_name, 
+                          link = link_name,
+                          lam = lam,
+                          n_splines= n_splines)
 
 def make_objective(X_train, y_train):
     """Calculates the objective function"""
@@ -120,18 +119,19 @@ def make_objective(X_train, y_train):
         model = create_instance(trial)
 
         try:
-            score = cross_validation(
-                X_train,
-                y_train,
-                model.clusterer,
-                model.distribution,
-                n_splits=NUM_FOLDS,
-            )["Mean"]
+            score = train_validation(
+                    X=X_train,
+                    y=y_train,
+                    clusterer=model.clusterer,
+                    distribution_name=model.distribution,  
+                    link_name=model.link,                   
+                    lam=model.lam,
+                    n_splines=model.n_splines,
+                )
 
-        except ValueError as e:  # , FloatingPointError):
-            print(e)
+        except ValueError:  # , FloatingPointError):
             raise optuna.exceptions.TrialPruned()
-
+            
         return score
 
     return objective
@@ -142,8 +142,8 @@ def optimization(X_train, y_train):
 
     clusters_study = create_study(
         direction="minimize",
-        study_name=f"optimization_clusters_glm_teste{data}",
-        storage=f"sqlite:///optimization_clusters_glm_teste{data}.db",
+        study_name=f"optimization_clusters_gam_teste{data}",
+        storage=f"sqlite:///optimization_clusters_gam_teste{data}.db",
         load_if_exists=True,
         sampler=optuna.samplers.RandomSampler(),
     )
@@ -169,8 +169,8 @@ if __name__ == "__main__":
             pickle.dump(superconductivity_data, f)
 
     # Data treatment and splitting
-    X = superconductivity_data.data.features
-    y = superconductivity_data.data.targets
+    X = superconductivity_data.data.features.values
+    y = superconductivity_data.data.targets.values.ravel()
     X_test, X_train, y_test, y_train = train_test_split(
         X, y, test_size=TEST_SIZE, random_state=1702
     )
