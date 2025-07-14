@@ -42,7 +42,7 @@ Optuna files with the optimizations.
 
 #### **Other Files**
 * *Subrgoup_discovery.ipynb*: Test of pysubgroup module.
-* *Optuna_Results_Analysis_IT_GLM_GAM.ipynb: Analysis of the intermediate results of GLM and GAM optimizations. 
+* *Optuna_Results_Analysis_IT_GLM_GAM.ipynb*: Analysis of the intermediate results of GLM and GAM optimizations. 
 
 
 ## References
