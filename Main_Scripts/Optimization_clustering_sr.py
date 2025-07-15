@@ -23,7 +23,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from ucimlrepo import fetch_ucirepo
 
-from script_SR import Clustering_SR, train_validation
+from script_sr import Clustering_SR, train_validation
 
 
 now = time.localtime()

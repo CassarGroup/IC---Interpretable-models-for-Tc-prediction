@@ -2,34 +2,27 @@ import statistics as st
 
 import numpy as np
 import pandas as pd
-import statsmodels.api as sm
+from pysr import PySRRegressor
 from sklearn.base import BaseEstimator, RegressorMixin, clone
 from sklearn.metrics import root_mean_squared_error
 from sklearn.model_selection import KFold
 from sklearn.preprocessing import StandardScaler
-from ucimlrepo import fetch_ucirepo
 
-
-def load_dataset():
-    """Import the dataset from UCI repository"""
-
-    # Import dataset
-    superconductivty_data = fetch_ucirepo(id=464)
-
-    # Data (dataframe)
-    X = superconductivty_data.data.features
-    y = superconductivty_data.data.targets
-
-    return X, y
-
-
-class Clustering_GLM(BaseEstimator, RegressorMixin):
-    def __init__(self, clusterer, distribution):
+class Clustering_SR(BaseEstimator, RegressorMixin):
+    
+    def __init__(self, clusterer, n_iterations, maxsize, maxdepth, binary_operators, unary_operators, select_k_features):
+        self.n_iterations = n_iterations
         self.clusterer = clusterer
-        self.distribution = distribution
-
+        self.n_iterations = n_iterations
+        self.maxsize = maxsize
+        self.maxdepth = maxdepth
+        self.binary_operators = binary_operators
+        self.unary_operators = unary_operators
+        self.select_k_features = select_k_features
+        
+        
     def fit(self, X, y):
-        """Ajustando um modelo para cada cluster"""
+        """Adjusting a model for each cluster"""
 
         self.scaler_X_ = StandardScaler()
         X_scaled = self.scaler_X_.fit_transform(X)
@@ -52,6 +45,14 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
 
         # For each cluster, fit a supervised model
         self.data_by_cluster_ = {}
+        
+        self.default_pysr_params = dict(
+                populations = 20,
+                model_selection="best",
+                batching=True,
+                batch_size=64,
+                progress = True,
+            )
 
         for cluster in valid_clusters:  # identify the classes
             idx = np.where(cluster_labels == cluster)[0]
@@ -64,16 +65,38 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
                 "y": y_cluster,
                 "indices": idx,
             }
-
-            model_glm = sm.GLM(y_cluster, X_cluster, family=self.distribution)
-            glm = model_glm.fit()
-
-            self.models_[cluster] = glm
+                
+            self.constraints = {}
+            if "/" in self.binary_operators:
+                self.constraints["/"] = (-1, 9)
+            
+            if "square" in self.unary_operators:
+                self.constraints["square"] = 9
+            
+            if "cube" in self.unary_operators:
+                self.constraints["cube"] = 9
+                
+            if "exp" in self.unary_operators:
+                self.constraints["exp"] = 9
+        
+            model = PySRRegressor(
+                maxsize = self.maxsize,
+                maxdepth=self.maxdepth,
+                binary_operators=self.binary_operators,
+                unary_operators=self.unary_operators,
+                niterations=self.n_iterations,
+                select_k_features=self.select_k_features,
+                **self.default_pysr_params,
+            )
+            
+            model.fit(X_cluster, y_cluster)
+            
+            self.models_[cluster] = model
 
         return self
 
     def predict(self, X):
-        """Realiza previsão considerando cada cluster"""
+        """Making predictions considering each cluster"""
 
         X = self.scaler_X_.transform(X)
         cluster_labels = self.clusterer_.predict(X)
@@ -89,8 +112,8 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         return y_pred
 
 
-def cross_validation(X, y, clusterer, distribution, random_seed=1203, n_splits=5):
-    """Realiza validação cruzada com clusterização"""
+def cross_validation(X, y, clusterer, n_iterations, maxsize, maxdepth, binary_operators, unary_operators, select_k_features, random_seed=1203, n_splits=5):
+    """Cross validation with clustering"""
 
     kf = KFold(n_splits=n_splits, shuffle=True, random_state=random_seed)
 
@@ -100,7 +123,14 @@ def cross_validation(X, y, clusterer, distribution, random_seed=1203, n_splits=5
         X_train, X_test = X.iloc[train_idx], X.iloc[test_idx]
         y_train, y_test = y.iloc[train_idx], y.iloc[test_idx]
 
-        model = Clustering_GLM(clusterer=clone(clusterer), distribution=distribution)
+        model = Clustering_SR(clusterer=clone(clusterer), 
+                              n_iterations=n_iterations, 
+                              maxsize=maxsize,
+                              maxdepth=maxdepth, 
+                              binary_operators=binary_operators, 
+                              unary_operators=unary_operators, 
+                              select_k_features=select_k_features)
+        
         model.fit(X_train, y_train)
 
         y_pred = model.predict(X_test)

@@ -1,0 +1,13 @@
+Complexity,Loss,Equation
+1,173.90771,"10.658784"
+3,170.21136,"std_ElectronAffinity + 10.022944"
+5,168.09413,"(std_ElectronAffinity + mean_ThermalConductivity) + 11.197191"
+6,166.50893,"exp(gmean_fie * -2.4889402) + 12.850909"
+7,164.55878,"(std_ElectronAffinity + (-1.1767699 * gmean_fie)) + 11.197191"
+8,158.3743,"(exp(gmean_fie * -2.4889402) + 13.03092) + std_ThermalConductivity"
+10,152.49986,"(exp(gmean_fie * -3.104264) + (wtd_std_Valence * 0.89792657)) + 6.7887897"
+12,146.62842,"(exp(gmean_fie * -3.1592255) + ((wtd_std_Valence + std_ElectronAffinity) * 1.2089931)) + 5.5619087"
+16,142.30214,"exp(gmean_fie * -2.4889402) + ((std_ElectronAffinity + (((mean_ThermalConductivity * -2.4613972) + wtd_std_Valence) * -0.9809295)) + 12.850909)"
+20,140.83252,"(exp(gmean_fie * -2.9963565) + ((std_ElectronAffinity + ((((mean_ThermalConductivity * -14.179545) + wtd_std_Valence) + gmean_fie) * -0.28929847)) + 1.6566765)) + 12.566172"
+32,124.891106,"(exp((((wtd_std_Valence * gmean_fie) + (((mean_fie + 0.03066107) * gmean_fie) + (mean_fie + 0.030949578))) * -1.6317818) + ((((wtd_std_Valence * gmean_fie) + wtd_std_Valence) * (gmean_fie + -1.6891812)) + 0.027926005)) + std_ElectronAffinity) + 8.672934"
+36,115.12562,"(exp((((wtd_std_Valence * (mean_fie * 1.5910169)) + (((mean_fie + 0.9245923) * gmean_fie) + (mean_fie + -0.09145509))) * -1.4751986) + ((((wtd_std_Valence * gmean_fie) + wtd_std_Valence) * ((gmean_fie + -0.64042723) * 0.85860825)) + 0.056758072)) + std_ElectronAffinity) + 7.504471"

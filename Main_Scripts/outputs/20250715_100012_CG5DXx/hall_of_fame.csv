@@ -1,0 +1,12 @@
+Complexity,Loss,Equation
+1,1175.3146,"34.512516"
+3,646.9559,"std_ThermalConductivity / wtd_mean_Valence"
+5,533.1069,"wtd_std_ThermalConductivity / (wtd_range_Valence + 1.5458513)"
+7,490.181,"wtd_std_ThermalConductivity / ((wtd_mean_Valence - wtd_entropy_atomic_radius) + 1.5458513)"
+8,489.1195,"exp(wtd_entropy_atomic_radius + exp(sin(wtd_mean_Valence))) * 1.4742388"
+11,460.5194,"wtd_entropy_atomic_radius * (exp((-35.58714 / wtd_mean_ThermalConductivity) + sin(gmean_Valence)) * 26.923801)"
+13,433.90475,"(wtd_entropy_atomic_radius * exp((-61.966553 / wtd_mean_ThermalConductivity) + (sin(gmean_Valence) + 2.0832756))) * 5.0663104"
+15,421.45358,"(wtd_entropy_atomic_radius + 1.7935268) * (wtd_entropy_atomic_radius * exp(((-37.964417 / wtd_mean_ThermalConductivity) + 2.259998) + sin(gmean_Valence)))"
+17,417.3348,"((wtd_entropy_atomic_radius + 0.5158973) * (wtd_entropy_atomic_radius * exp((-42.7144 / wtd_mean_ThermalConductivity) + (sin(gmean_Valence) + 2.804924)))) + 1.5176862"
+19,416.85718,"(((wtd_entropy_atomic_radius + 0.5158973) * (wtd_entropy_atomic_radius * exp(((-42.7144 / wtd_mean_ThermalConductivity) + sin(gmean_Valence)) + 2.804924))) - -2.5423286) - wtd_entropy_atomic_radius"
+20,416.2616,"(((wtd_entropy_atomic_radius + 0.5158973) * (wtd_entropy_atomic_radius * exp((-42.7144 / wtd_mean_ThermalConductivity) + (sin(gmean_Valence) + 2.804924)))) - -2.5423286) - cos(wtd_std_atomic_radius)"

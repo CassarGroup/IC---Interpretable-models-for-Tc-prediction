@@ -1,0 +1,13 @@
+Complexity,Loss,Equation
+1,9.905719,"3.770952"
+3,9.620223,"wtd_gmean_atomic_radius + 2.241733"
+5,8.564269,"(std_atomic_radius * wtd_gmean_fie) + 2.5544722"
+11,8.53716,"((std_atomic_radius * wtd_gmean_fie) + ((entropy_ThermalConductivity + 2.489742) * 0.52425325)) + 1.2772361"
+13,8.506567,"(std_atomic_radius * wtd_gmean_fie) + ((((entropy_ThermalConductivity + 2.4897418) * 0.52425325) + 2.4897418) * 0.6695952)"
+14,8.383444,"exp((wtd_mean_fie + 1.7939616) * (((wtd_mean_fie + 0.92410195) * (std_atomic_radius + -2.5603554)) + wtd_gmean_atomic_radius))"
+15,7.898034,"((wtd_gmean_fie * std_atomic_radius) * 0.88700473) + (((std_atomic_radius + wtd_mean_atomic_radius) * (wtd_mean_atomic_radius * gmean_ElectronAffinity)) + 2.7198029)"
+17,7.8900886,"((wtd_gmean_fie * std_atomic_radius) * 0.88700473) + (((wtd_mean_atomic_radius * gmean_ElectronAffinity) * (std_atomic_radius + (wtd_mean_atomic_radius + -0.1435061))) + 2.7198029)"
+28,7.7983127,"exp((((wtd_gmean_ThermalConductivity * -0.8307593) + 1.365464) * wtd_gmean_ThermalConductivity) * 0.8301521) + (exp((exp(exp(std_Valence)) * (exp(wtd_gmean_fie) * (wtd_gmean_atomic_radius * -0.99661857))) + 1.532078) + (wtd_mean_atomic_radius + 0.41094607))"
+30,7.539036,"exp(((wtd_mean_fie + exp((wtd_mean_atomic_radius * wtd_gmean_fie) * exp(wtd_mean_fie))) * ((((wtd_gmean_fie + exp(wtd_mean_fie * -0.34823024)) + (exp(wtd_mean_fie) * -0.086743146)) * (wtd_mean_fie + -1.1676542)) * 0.9574439)) + 1.1692644)"
+41,7.3591924,"exp(((((std_atomic_radius * ((wtd_mean_fie + wtd_gmean_ThermalConductivity) * -0.06999103)) * ((std_atomic_radius + (wtd_mean_atomic_mass * -1.3598301)) + exp(wtd_mean_atomic_radius))) + (wtd_gmean_ThermalConductivity * -0.22605106)) + exp((exp(wtd_gmean_fie) * 1.4742731) + (exp((wtd_mean_fie + 0.85404396) * exp(wtd_mean_atomic_radius)) * -0.8892426))) + (wtd_gmean_atomic_radius + wtd_mean_fie))"
+47,7.2878065,"exp(((((-0.038796946 * std_atomic_radius) * (wtd_mean_fie + wtd_gmean_ThermalConductivity)) * (std_atomic_radius + ((wtd_mean_atomic_mass * -1.2716987) + exp(wtd_mean_atomic_radius)))) + ((-0.038796946 * (std_atomic_radius * (wtd_mean_fie + wtd_gmean_ThermalConductivity))) * -0.42125556)) + exp((exp(wtd_gmean_fie) * 1.7191507) + (exp((wtd_gmean_fie + 0.6192915) * exp(wtd_mean_atomic_radius)) * -1.2224967))) + (wtd_gmean_atomic_radius + wtd_mean_fie)"

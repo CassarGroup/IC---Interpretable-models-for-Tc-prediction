@@ -1,0 +1,7 @@
+Complexity,Loss,Equation
+1,49.30764,"5.363095"
+3,46.34644,"wtd_gmean_FusionHeat + 4.209244"
+5,45.445267,"(mean_Density * -0.94134676) + 5.7003675"
+7,43.839645,"wtd_gmean_FusionHeat + ((mean_Density * -0.8979629) + 4.5846887)"
+12,43.282192,"exp((((wtd_gmean_ThermalConductivity * gmean_Density) + mean_Density) * -0.33061314) + 1.4071937) + 0.65931916"
+14,41.453926,"(((exp(gmean_Density * -1.6672168) + -2.597046) * (wtd_gmean_ThermalConductivity + 1.3535595)) + 8.177877) + wtd_gmean_FusionHeat"
