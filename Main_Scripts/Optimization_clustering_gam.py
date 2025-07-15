@@ -169,8 +169,8 @@ if __name__ == "__main__":
             pickle.dump(superconductivity_data, f)
 
     # Data treatment and splitting
-    X = superconductivity_data.data.features.values
-    y = superconductivity_data.data.targets.values.ravel()
+    X = superconductivity_data.data.features
+    y = superconductivity_data.data.targets
     X_test, X_train, y_test, y_train = train_test_split(
         X, y, test_size=TEST_SIZE, random_state=1702
     )
