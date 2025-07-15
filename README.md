@@ -29,6 +29,21 @@ pip install pygam==0.9.1
 ```
 
 ## Files 🗂️
+#### **Data**
+* *train_csv* (UCI Repository): File with the atomic features.
+* *unique_m.csv* (UCI Repository): File with the composition of materials and chemical formula.
+
+#### **Optuna Files**
+Optuna files with the optimizations.
+* *optimization_gam*: Optimization of Clustering+GAM model (bayesian search)
+* *optimization_glm_random_search*: Optimization of Clustering+GLM model (random search)
+* *optimization_glm_bayesian_search*: Optimization of Clustering+GLM model (bayesian search)
+* *optimization_glm_subgroup_discovery*: Optimization of Clustering+GLM model with the previous separation using a rule discovered by SGD algorithm (bayesian search)
+
+#### **Other Files**
+* *Subrgoup_discovery.ipynb*: Test of pysubgroup module.
+* *Optuna_Results_Analysis_IT_GLM_GAM.ipynb*: Analysis of the intermediate results of GLM and GAM optimizations. 
+
 
 ## References
 [1] Wang FE. Superconductivity. In: Wang FE, editor. Bonding Theory for Metals and Alloys. Elsevier; 2005. p. 65-108. Acesso em: 27 abr. 2025. Available from: https://www.sciencedirect.com/science/article/pii/B9780444519788500076.
