@@ -88,7 +88,7 @@ def create_instance(trial):
     binary_operators = []
     
     for i in range(n_binary_operators):
-        operator = trial.suggest_categorical(f"binary_operators_{i}", options_binary_operators)
+        operator = trial.suggest_categorical(f"binary_operators_{i}", binary_operators_options)
         binary_operators.append(operator)
     binary_operators = list(set(binary_operators))
 
@@ -97,13 +97,13 @@ def create_instance(trial):
     unary_operators = []
 
     for i in range(n_unary_operators):
-        operator = trial.suggest_categorical(f"unary_operators_{i}", options_unary_operators)
+        operator = trial.suggest_categorical(f"unary_operators_{i}", unary_operators_options)
         unary_operators.append(operator)
     unary_operators = list(set(unary_operators))
 
-    select_k_features = trial.suggest_int("n_features", 20, 80)
+    select_k_features = trial.suggest.int("n_features", 20, 80)
 
-    return Clustering_SR(clusterer=clusterer, 
+    return Clustering_SR(clusterer=clone(clusterer), 
                               n_iterations=n_iterations, 
                               maxsize=maxsize,
                               maxdepth=maxdepth, 
@@ -122,12 +122,10 @@ def make_objective(X_train, y_train):
                     X=X_train,
                     y=y_train,
                     clusterer=model.clusterer,
-                    n_iterations=model.n_iterations,  
-                    maxsize=model.maxsize,
-                    maxdepth=model.maxdepth,                   
-                    binary_operators=model.binary_operators,
-                    unary_operators=model.unary_operators,
-                    select_k_features=model.select_k_features
+                    distribution_name=model.distribution,  
+                    link_name=model.link,                   
+                    lam=model.lam,
+                    n_splines=model.n_splines,
                 )
 
         except ValueError:  # , FloatingPointError):
@@ -157,16 +155,16 @@ def optimization(X_train, y_train):
     return parameters_best_trial
 
 
-superconductivity_data = fetch_ucirepo(id=464)
+    superconductivity_data = fetch_ucirepo(id=464)
 
     # Data treatment and splitting
-X = superconductivity_data.data.features
-y = superconductivity_data.data.targets
-X_test, X_train, y_test, y_train = train_test_split(
+    X = superconductivity_data.data.features.values
+    y = superconductivity_data.data.targets.values.ravel()
+    X_test, X_train, y_test, y_train = train_test_split(
         X, y, test_size=TEST_SIZE, random_state=1702
     )
-y_test = np.clip(y_test, 1e-6, None)
-y_train = np.clip(y_train, 1e-6, None)
+    y_test = np.clip(y_test, 1e-6, None)
+    y_train = np.clip(y_train, 1e-6, None)
 
-# Optimization
-resultado = optimization(X_train, y_train)
+    # Optimization
+    resultado = optimization(X_train, y_train)

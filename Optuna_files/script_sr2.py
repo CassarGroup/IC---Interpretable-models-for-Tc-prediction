@@ -7,7 +7,6 @@ from sklearn.base import BaseEstimator, RegressorMixin, clone
 from sklearn.metrics import root_mean_squared_error
 from sklearn.model_selection import KFold
 from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
 
 class Clustering_SR(BaseEstimator, RegressorMixin):
     
@@ -148,9 +147,6 @@ def cross_validation(X, y, clusterer, n_iterations, maxsize, maxdepth, binary_op
 
 def train_validation(X, y, clusterer, n_iterations, maxsize, maxdepth, binary_operators, unary_operators, select_k_features, random_seed=1203, n_splits=5):
 
-    TEST_SIZE=0.1
-    RANDOM_SEED=1203 
-
     X_validation, X_train, y_validation, y_train = train_test_split(
         X, y, test_size=TEST_SIZE, random_state=RANDOM_SEED
     )
@@ -163,7 +159,6 @@ def train_validation(X, y, clusterer, n_iterations, maxsize, maxdepth, binary_op
                             unary_operators=unary_operators,
                             select_k_features=select_k_features
                             )
-
     model.fit(X_train, y_train)
 
     y_pred = model.predict(X_validation)
