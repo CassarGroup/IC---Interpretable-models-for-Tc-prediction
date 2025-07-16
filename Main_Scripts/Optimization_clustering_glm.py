@@ -145,7 +145,6 @@ def optimization(X_train, y_train):
         study_name=f"optimization_clusters_glm_teste{data}",
         storage=f"sqlite:///../Optuna_files/optimization_clusters_glm_teste{data}.db",
         load_if_exists=True,
-        sampler=optuna.samplers.RandomSampler(),
     )
 
     objective_fn = make_objective(X_train, y_train)

@@ -23,7 +23,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from ucimlrepo import fetch_ucirepo
 
-from script_sr2 import Clustering_SR, train_validation
+from script_sr import Clustering_SR, train_validation
 
 
 now = time.localtime()
@@ -143,7 +143,7 @@ def optimization(X_train, y_train):
 
     clusters_study = create_study(
         direction="minimize",
-        study_name=f"optimization_clusters_gam_teste{data}",
+        study_name=f"optimization_clusters_sr_teste{data}",
         storage=f"sqlite:///optimization_clusters_sr_teste{data}.db",
         load_if_exists=True,
     )
