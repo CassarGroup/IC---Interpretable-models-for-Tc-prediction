@@ -1,0 +1,5 @@
+Complexity,Loss,Equation
+1,201.04936,"79.809525"
+3,164.97571,"wtd_range_fie / 0.009161979"
+5,163.7068,"1158.2278 - (-722.278 / wtd_gmean_FusionHeat)"
+7,135.93484,"(wtd_mean_ElectronAffinity - -91.78926) + (wtd_range_fie / wtd_entropy_fie)"

@@ -1,0 +1,11 @@
+Complexity,Loss,Equation
+1,982.9808,"57.085888"
+3,877.0863,"wtd_gmean_Valence * -82.29505"
+4,821.1512,"exp(wtd_std_ElectronAffinity - -3.630268)"
+5,800.53424,"exp(sin(wtd_std_ThermalConductivity) - -3.4875321)"
+7,705.85284,"exp(cos(wtd_gmean_ThermalConductivity + wtd_mean_ThermalConductivity) - -3.4781783)"
+8,685.072,"exp(wtd_std_ElectronAffinity - (-3.630268 + (range_ElectronAffinity - std_ElectronAffinity)))"
+9,632.95734,"exp(3.4526353 - cos(3.4526353 - (-1.9817822 / range_ElectronAffinity)))"
+10,534.53894,"exp(cube(wtd_range_ThermalConductivity) - (-3.3914196 - cos(2.0887358 / range_ElectronAffinity)))"
+12,507.03055,"exp(3.9141028 - (abs(-0.96051407 - gmean_ElectronAffinity) - cos(wtd_gmean_ThermalConductivity + wtd_mean_ThermalConductivity)))"
+14,479.38898,"exp(3.9141028 - (abs((wtd_gmean_Valence * 1.5158073) - gmean_ElectronAffinity) - cos(wtd_gmean_ThermalConductivity + wtd_mean_ThermalConductivity)))"

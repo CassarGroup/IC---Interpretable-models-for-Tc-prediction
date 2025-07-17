@@ -1,0 +1,13 @@
+Complexity,Loss,Equation
+1,660.8772,"34.65458"
+3,394.76346,"0.013902749 ^ wtd_mean_Valence"
+4,377.26065,"cube(wtd_gmean_Valence) * -78.20767"
+5,357.59985,"exp(neg(wtd_std_Valence + -2.931211))"
+7,357.5996,"exp(neg(wtd_std_Valence + -1.7593584) + 1.1719364)"
+8,320.73328,"cube(wtd_entropy_atomic_mass + neg(cos(wtd_std_Valence) + -3.8860903))"
+10,311.49582,"exp(neg((wtd_std_Valence + cos(wtd_entropy_atomic_mass)) + -3.8869696)) + wtd_entropy_Density"
+12,309.26227,"abs(exp(neg((wtd_std_Valence + -3.919459) + cos(wtd_entropy_atomic_mass))) - cos(gmean_atomic_radius))"
+14,288.59692,"exp(abs(neg((wtd_std_Valence + cos((2.6621842 / exp(gmean_Density)) - 5.2433453)) + -3.8860903)))"
+15,230.02043,"cube((wtd_entropy_atomic_mass + wtd_range_Density) + neg(-3.8399816 + cos((exp(gmean_Density) - 7.589998) + wtd_std_Valence)))"
+22,220.58466,"neg(neg(exp(neg(cos((exp(wtd_std_Valence + wtd_range_Valence) / 0.15493348) + 1.7810755) + (neg(exp(cos(exp(wtd_std_Valence)))) - neg(wtd_mean_Valence))))))"
+25,216.76483,"neg(neg(exp(neg((cos((exp(wtd_std_Valence + (wtd_range_Valence + 0.26946986)) / 0.2021761) + 1.6960412) + neg(exp(cos(exp(wtd_std_Valence) / gmean_Density)))) - 1.0277864))))"

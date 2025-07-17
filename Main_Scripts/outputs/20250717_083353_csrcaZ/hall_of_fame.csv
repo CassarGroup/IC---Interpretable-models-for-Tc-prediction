@@ -1,0 +1,5 @@
+Complexity,Loss,Equation
+1,432.17783,"80.76204"
+3,359.34213,"48.715515 / wtd_gmean_ElectronAffinity"
+5,194.87857,"1.27825 / (wtd_gmean_Valence + 0.86258495)"
+7,194.44951,"(wtd_mean_ElectronAffinity - wtd_std_Valence) / (wtd_gmean_Valence + 0.8644055)"

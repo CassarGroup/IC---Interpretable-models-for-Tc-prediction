@@ -1,0 +1,10 @@
+Complexity,Loss,Equation
+1,116.65097,"11.848103"
+3,108.660355,"10.871684 - wtd_gmean_ElectronAffinity"
+4,90.52274,"cube(exp(cos(range_fie)))"
+6,82.21081,"square((range_fie - -3.4595847) - wtd_gmean_ElectronAffinity)"
+8,74.1521,"square(mean_FusionHeat - (3.532097 - (wtd_gmean_ElectronAffinity - range_fie)))"
+12,73.2703,"abs(square((3.532097 - (wtd_gmean_ElectronAffinity - range_fie)) - mean_FusionHeat) + neg(mean_Density))"
+13,73.185326,"abs(square(mean_FusionHeat - (3.532097 - (wtd_gmean_ElectronAffinity - range_fie))) + (wtd_std_ElectronAffinity - range_fie))"
+26,72.35227,"square((((gmean_ElectronAffinity - exp(square(cos(range_fie) + abs(0.17120455)))) - exp(cos(exp(abs(cos(square(range_fie))) + 0.36404762)))) - (1.4489685 ^ wtd_std_ElectronAffinity)) * -0.7740606)"
+27,69.89276,"square(((1.4489685 ^ wtd_std_ElectronAffinity) - ((gmean_ElectronAffinity - abs(exp(square(cos(range_fie) + 0.17120455)))) - exp(cos(exp(0.36404762 + cos(abs(range_fie))) - gmean_ElectronAffinity)))) * -0.7740606)"

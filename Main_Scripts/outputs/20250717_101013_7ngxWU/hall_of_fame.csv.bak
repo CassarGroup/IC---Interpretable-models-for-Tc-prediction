@@ -1,0 +1,10 @@
+Complexity,Loss,Equation
+1,10.523952,"4.396335"
+3,10.190161,"wtd_mean_Valence + 4.154043"
+5,9.871449,"cos(exp(wtd_mean_ThermalConductivity)) + 3.6875148"
+6,9.734819,"exp(inv(cos(cos(cos(mean_Density)))))"
+7,9.69269,"(cos(exp(wtd_mean_ThermalConductivity)) + 3.2598028) + wtd_gmean_Valence"
+9,9.351548,"exp(inv(cos(sin(mean_Density)))) + cos(exp(wtd_mean_ThermalConductivity))"
+11,9.244647,"cos(exp(wtd_mean_ThermalConductivity)) + exp(inv(cos(sin(cos(cos(mean_Density))))))"
+12,9.03562,"(exp(inv(cos(cos(cos(mean_Density))))) + cos(exp(wtd_mean_ThermalConductivity))) + -0.6922402"
+13,8.67232,"abs(cos(exp(wtd_mean_ThermalConductivity)) + exp(inv(cos(cos(cos(mean_Density * wtd_gmean_Valence))))))"

@@ -11,19 +11,18 @@ from sklearn.model_selection import train_test_split
 
 class Clustering_SR(BaseEstimator, RegressorMixin):
     
-    def __init__(self, clusterer, n_iterations, maxsize, maxdepth, binary_operators, unary_operators, select_k_features):
+    def __init__(self, clusterer, n_iterations, maxsize, maxdepth, select_k_features):
         self.n_iterations = n_iterations
         self.clusterer = clusterer
         self.n_iterations = n_iterations
         self.maxsize = maxsize
         self.maxdepth = maxdepth
-        self.binary_operators = binary_operators
-        self.unary_operators = unary_operators
         self.select_k_features = select_k_features
         
         
     def fit(self, X, y):
         """Adjusting a model for each cluster"""
+        self.feature_names = list(X.columns)
 
         self.scaler_X_ = StandardScaler()
         X_scaled = self.scaler_X_.fit_transform(X)
@@ -43,6 +42,7 @@ class Clustering_SR(BaseEstimator, RegressorMixin):
         valid_clusters = [c for c in unique_clusters if c != -1]
 
         self.models_ = {}
+        self.expressions_ = {}
 
         # For each cluster, fit a supervised model
         self.data_by_cluster_ = {}
@@ -53,6 +53,9 @@ class Clustering_SR(BaseEstimator, RegressorMixin):
                 batching=True,
                 batch_size=64,
                 progress = True,
+                binary_operators=["+", "-", "*", "/", "^"], 
+                unary_operators=["neg", "square", "cube", "sqrt", "abs", "inv", "exp", "log", "sin", "cos", "tan"], 
+                verbosity = 0
             )
 
         for cluster in valid_clusters:  # identify the classes
@@ -66,25 +69,17 @@ class Clustering_SR(BaseEstimator, RegressorMixin):
                 "y": y_cluster,
                 "indices": idx,
             }
-                
-            self.constraints = {}
-            if "/" in self.binary_operators:
-                self.constraints["/"] = (-1, 9)
-            
-            if "square" in self.unary_operators:
-                self.constraints["square"] = 9
-            
-            if "cube" in self.unary_operators:
-                self.constraints["cube"] = 9
-                
-            if "exp" in self.unary_operators:
-                self.constraints["exp"] = 9
-        
+
+            self.constraints = {
+                "/": (-1, 9),
+                "square": 9,
+                "cube": 9,
+                "exp": 9,
+                }
+
             model = PySRRegressor(
                 maxsize = self.maxsize,
                 maxdepth=self.maxdepth,
-                binary_operators=self.binary_operators,
-                unary_operators=self.unary_operators,
                 niterations=self.n_iterations,
                 select_k_features=self.select_k_features,
                 **self.default_pysr_params,
@@ -93,6 +88,7 @@ class Clustering_SR(BaseEstimator, RegressorMixin):
             model.fit(X_cluster, y_cluster)
             
             self.models_[cluster] = model
+            self.expressions_[cluster] = model.equations_[["complexity", "loss", "equation"]]
 
         return self
 
@@ -113,7 +109,7 @@ class Clustering_SR(BaseEstimator, RegressorMixin):
         return y_pred
 
 
-def cross_validation(X, y, clusterer, n_iterations, maxsize, maxdepth, binary_operators, unary_operators, select_k_features, random_seed=1203, n_splits=5):
+def cross_validation(X, y, clusterer, n_iterations, maxsize, maxdepth, select_k_features, random_seed=1203, n_splits=5):
     """Cross validation with clustering"""
 
     kf = KFold(n_splits=n_splits, shuffle=True, random_state=random_seed)
@@ -128,8 +124,6 @@ def cross_validation(X, y, clusterer, n_iterations, maxsize, maxdepth, binary_op
                               n_iterations=n_iterations, 
                               maxsize=maxsize,
                               maxdepth=maxdepth, 
-                              binary_operators=binary_operators, 
-                              unary_operators=unary_operators, 
                               select_k_features=select_k_features)
         
         model.fit(X_train, y_train)
@@ -146,7 +140,7 @@ def cross_validation(X, y, clusterer, n_iterations, maxsize, maxdepth, binary_op
 
     return all_rmse
 
-def train_validation(X, y, clusterer, n_iterations, maxsize, maxdepth, binary_operators, unary_operators, select_k_features, random_seed=1203, n_splits=5):
+def train_validation(X, y, clusterer, n_iterations, maxsize, maxdepth, select_k_features, random_seed=1203, n_splits=5):
 
     TEST_SIZE=0.1
     RANDOM_SEED=1203 
@@ -159,8 +153,6 @@ def train_validation(X, y, clusterer, n_iterations, maxsize, maxdepth, binary_op
                             n_iterations=n_iterations,
                             maxsize=maxsize,
                             maxdepth=maxdepth,
-                            binary_operators=binary_operators,
-                            unary_operators=unary_operators,
                             select_k_features=select_k_features
                             )
 

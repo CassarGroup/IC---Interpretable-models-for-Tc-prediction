@@ -1,0 +1,6 @@
+Complexity,Loss,Equation
+1,159.68921,"25.323969"
+3,155.3698,"24.882256 - wtd_std_Valence"
+4,122.88609,"exp(2.7953403 - wtd_std_Valence)"
+6,115.269356,"exp(2.747407 - wtd_std_Valence) / std_fie"
+9,115.00774,"abs(exp(2.747407 - wtd_std_Valence) / std_fie) + wtd_entropy_ElectronAffinity"

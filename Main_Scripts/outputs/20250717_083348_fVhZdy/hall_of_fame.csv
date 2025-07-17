@@ -1,0 +1,5 @@
+Complexity,Loss,Equation
+1,800.7023,"54.14094"
+3,631.6497,"-26.321718 / wtd_range_Valence"
+4,544.9018,"-76.62866 / inv(wtd_std_Valence)"
+5,364.42184,"-195.26126 - (119.995285 / wtd_range_Valence)"

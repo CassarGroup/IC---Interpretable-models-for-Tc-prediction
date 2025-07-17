@@ -1,0 +1,12 @@
+Complexity,Loss,Equation
+1,159.67862,"12.16228"
+3,118.9475,"0.1602591 ^ wtd_mean_atomic_mass"
+4,118.76362,"sqrt(0.026167495 ^ wtd_mean_atomic_mass)"
+5,109.68042,"(0.18879358 ^ wtd_mean_atomic_mass) - -4.195006"
+7,105.617065,"(2.4577215 - wtd_mean_ThermalConductivity) + (0.17507507 ^ wtd_mean_atomic_mass)"
+8,83.10399,"exp(cos(wtd_mean_ThermalConductivity)) * square(wtd_mean_atomic_mass + -1.512613)"
+10,82.61789,"square(wtd_mean_atomic_mass + -1.5337578) * exp(cos(wtd_mean_ThermalConductivity + 0.15945606))"
+12,82.11306,"exp(cos(wtd_mean_ThermalConductivity + (gmean_atomic_mass * -0.07528695))) * square(wtd_mean_atomic_mass + -1.512613)"
+13,80.57149,"(exp(cos(wtd_mean_ThermalConductivity + square(-0.3993195))) * square(wtd_mean_atomic_mass + -1.5337578)) + wtd_mean_fie"
+16,75.87668,"(((abs(gmean_atomic_mass) + abs(wtd_gmean_ElectronAffinity)) ^ (cos(wtd_mean_ThermalConductivity) + 0.92829186)) + 0.99812496) * exp(cos(wtd_std_Valence))"
+17,73.16348,"(((abs(gmean_atomic_mass) + abs(wtd_gmean_ElectronAffinity)) ^ (cos(wtd_mean_ThermalConductivity) + 0.92829186)) + 0.7145353) * exp(abs(cos(wtd_std_Valence)))"

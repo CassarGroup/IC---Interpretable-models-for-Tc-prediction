@@ -1,0 +1,10 @@
+Complexity,Loss,Equation
+1,48.286533,"6.958004"
+3,40.226906,"wtd_range_FusionHeat + 5.2950616"
+4,40.09764,"cube(wtd_gmean_fie) + 6.435236"
+5,37.571583,"(mean_fie + wtd_range_FusionHeat) + 5.1406293"
+6,36.294743,"cube(wtd_gmean_fie) + (wtd_range_FusionHeat + 4.576065)"
+7,36.22511,"abs((cube(wtd_gmean_fie) + wtd_range_FusionHeat) + 4.576065)"
+8,34.367886,"exp(gmean_fie / 1.9086165) + (wtd_range_FusionHeat + 3.3209279)"
+9,33.955875,"(wtd_range_FusionHeat + exp(abs(gmean_fie) / 1.9086165)) + 3.15814"
+10,31.169767,"((wtd_range_FusionHeat + exp(gmean_fie - 1.9086165)) + 2.5845776) * 1.2219173"

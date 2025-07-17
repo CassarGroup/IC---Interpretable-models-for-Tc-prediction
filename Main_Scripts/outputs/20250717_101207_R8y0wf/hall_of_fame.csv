@@ -1,0 +1,13 @@
+Complexity,Loss,Equation
+1,884.75555,"68.274216"
+3,845.6221,"wtd_gmean_Valence * -89.822014"
+4,711.1699,"square(std_atomic_mass + 7.73254)"
+5,681.3683,"(std_Density * 35.450253) + 60.38525"
+6,643.41766,"square((std_Density + 7.3967357) + mean_ThermalConductivity)"
+8,580.4771,"square((std_Density / -0.45117334) + (-7.489049 - wtd_mean_ThermalConductivity))"
+9,564.1125,"square((exp(wtd_gmean_Valence) * -50.06931) + (std_atomic_mass - -29.470928))"
+10,535.8928,"square(wtd_mean_ThermalConductivity - ((std_Density / -0.45117334) + (-7.489049 - wtd_mean_ThermalConductivity)))"
+14,512.39667,"cube(1.9783194 - wtd_gmean_Valence) * (mean_ThermalConductivity + (std_atomic_mass + (-3.7903318 - (wtd_gmean_Valence * 7.0374174))))"
+17,465.17697,"cube(0.4802176 - (wtd_gmean_Valence + -0.053394202)) * (7.8226104 * (((mean_ThermalConductivity + range_atomic_radius) + square(std_atomic_mass)) + 1.363557))"
+21,454.20935,"cube(1.6091665 - wtd_gmean_Valence) * ((mean_ThermalConductivity + (square(std_atomic_mass) + ((-0.24103346 + (range_atomic_radius - (wtd_gmean_Valence * wtd_mean_ThermalConductivity))) - -0.8346045))) * 1.631443)"
+22,447.19934,"((((range_atomic_radius + -1.0669534) - (wtd_gmean_Valence * (wtd_mean_ThermalConductivity - ((wtd_gmean_Valence * 3.5607712) - wtd_gmean_Valence)))) - -0.056062497) + (square(std_atomic_mass) + mean_ThermalConductivity)) * 22.776796"

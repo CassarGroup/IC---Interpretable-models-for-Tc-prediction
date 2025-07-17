@@ -1,0 +1,10 @@
+Complexity,Loss,Equation
+1,58.446697,"6.3810267"
+3,45.595863,"5.981638 / wtd_gmean_Valence"
+4,45.16308,"5.9588532 / abs(wtd_gmean_Valence)"
+5,40.18044,"(3.4988186 / mean_Valence) + mean_Valence"
+6,39.347744,"(3.4988186 / mean_Valence) + square(mean_Valence)"
+7,38.748264,"(4.3499665 / wtd_gmean_Valence) + (4.3499665 - wtd_mean_atomic_mass)"
+8,38.019093,"((3.4988186 / mean_Valence) + square(mean_Valence)) - wtd_mean_ElectronAffinity"
+10,32.126602,"(8.1641445 / (wtd_gmean_Valence + square(wtd_gmean_ElectronAffinity - -0.23520052))) + 2.0381424"
+15,31.244308,"((8.1641445 / (wtd_gmean_Valence + square(wtd_gmean_ElectronAffinity - tan(-0.23520052)))) + 2.0381424) - (std_FusionHeat * -2.2206624)"

@@ -1,0 +1,8 @@
+Complexity,Loss,Equation
+1,23.408426,"4.7723374"
+3,21.155863,"5.607025 - wtd_mean_atomic_mass"
+4,19.438719,"exp(wtd_entropy_atomic_mass - -1.7611918)"
+5,19.36952,"exp(abs(-1.7611918 - wtd_entropy_atomic_mass))"
+6,15.888899,"exp(wtd_entropy_atomic_mass - (mean_ElectronAffinity + -1.9231375))"
+7,15.638956,"exp(abs(wtd_entropy_atomic_mass - (mean_ElectronAffinity + -1.9231375)))"
+8,14.497482,"exp((wtd_entropy_atomic_mass - gmean_ElectronAffinity) + 1.3226913) - -2.354267"

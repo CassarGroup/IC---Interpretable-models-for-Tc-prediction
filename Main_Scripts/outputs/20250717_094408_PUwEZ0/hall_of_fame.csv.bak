@@ -1,0 +1,12 @@
+Complexity,Loss,Equation
+1,707.4205,"66.24576"
+3,483.36713,"wtd_std_Valence * -73.36704"
+5,472.71146,"wtd_std_Valence * (std_ThermalConductivity * -80.76825)"
+7,470.99484,"wtd_std_Valence * ((gmean_fie + -80.85898) * std_ThermalConductivity)"
+9,467.03262,"(wtd_std_Valence * -94.86513) - (21.092052 - (gmean_fie * -17.096361))"
+11,465.5666,"(wtd_std_Valence * -94.86513) - (21.092052 - (gmean_fie * (-17.096361 + std_atomic_radius)))"
+12,460.39996,"abs(((wtd_range_fie * (mean_fie * -16.620462)) - 26.737865) - (103.510025 * wtd_std_Valence))"
+14,459.58865,"neg((wtd_std_Valence * 103.510025) - ((wtd_range_fie * (mean_fie * (-16.620462 + wtd_std_Valence))) - 26.737865))"
+15,459.52115,"abs(neg((wtd_std_Valence * 103.510025) - ((wtd_range_fie * (mean_fie * (-16.620462 + wtd_std_Valence))) - 26.737865)))"
+16,446.56906,"(((neg(mean_fie - (std_atomic_radius ^ 15.049604)) - 2.023397) * 12.550984) + (wtd_std_Valence * -99.902534)) + wtd_gmean_ElectronAffinity"
+18,445.9494,"(((neg(mean_fie - (std_atomic_radius ^ 15.049604)) - 2.023397) * 12.550984) + wtd_gmean_ElectronAffinity) + (wtd_std_Valence * (-99.363716 - std_atomic_radius))"

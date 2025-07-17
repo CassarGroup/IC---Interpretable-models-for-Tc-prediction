@@ -1,0 +1,11 @@
+Complexity,Loss,Equation
+1,10.498608,"4.395595"
+3,10.208552,"wtd_mean_Valence + 4.013757"
+4,10.053154,"cos(wtd_gmean_ElectronAffinity) + 3.9463944"
+6,9.901488,"4.013757 - (-0.8647535 + sin(wtd_mean_atomic_mass))"
+7,9.470993,"(inv(exp(mean_Density)) + gmean_Density) + 2.436158"
+9,9.241422,"(inv(exp(mean_Density)) + gmean_Density) + (wtd_gmean_Valence + 1.8821809)"
+10,9.124373,"inv(exp(mean_Density)) + abs(gmean_Density + (wtd_gmean_Valence + 1.8821809))"
+11,8.910004,"((inv(exp(mean_Density)) + gmean_Density) + (wtd_gmean_Valence + 1.8821809)) - wtd_gmean_FusionHeat"
+12,8.830745,"(inv(exp(mean_Density)) + abs((gmean_Density + wtd_gmean_Valence) + 1.8821809)) - wtd_mean_FusionHeat"
+14,8.416263,"abs(inv(exp(mean_Density)) + (wtd_mean_atomic_mass + ((wtd_gmean_Valence + (0.10230806 ^ gmean_Density)) + 0.9073502)))"

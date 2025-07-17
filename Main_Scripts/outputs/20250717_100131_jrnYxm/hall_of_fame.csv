@@ -1,0 +1,10 @@
+Complexity,Loss,Equation
+1,95.361984,"10.101565"
+3,86.003746,"10.634599 - wtd_std_Density"
+4,70.97769,"square(2.3294995 - wtd_mean_ElectronAffinity)"
+6,59.30565,"exp((wtd_entropy_atomic_radius - wtd_mean_ElectronAffinity) + 1.2114521)"
+8,56.406284,"exp((wtd_entropy_atomic_radius - wtd_mean_ElectronAffinity) + 0.97098494) + 2.5393384"
+9,48.641922,"exp(wtd_range_atomic_radius) + exp(1.0164886 + (wtd_entropy_atomic_radius - wtd_mean_ElectronAffinity))"
+10,48.30274,"exp(wtd_range_atomic_radius) + exp((cos(wtd_std_FusionHeat) + wtd_entropy_atomic_radius) - wtd_mean_ElectronAffinity)"
+11,47.958538,"(exp(wtd_range_atomic_radius) + exp((wtd_entropy_atomic_radius - wtd_mean_ElectronAffinity) + 1.100252)) - 0.21798864"
+12,46.197815,"exp(wtd_range_atomic_radius) + (exp(cos(wtd_std_FusionHeat) + (wtd_entropy_atomic_radius - wtd_mean_ElectronAffinity)) - -1.5554613)"

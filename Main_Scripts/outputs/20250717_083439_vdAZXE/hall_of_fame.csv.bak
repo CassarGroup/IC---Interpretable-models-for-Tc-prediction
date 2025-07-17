@@ -1,0 +1,5 @@
+Complexity,Loss,Equation
+1,256.7933,"82.83845"
+3,209.52979,"-45.968365 / wtd_entropy_ThermalConductivity"
+5,191.84505,"(1.4967598 / wtd_range_ThermalConductivity) + 91.237045"
+7,185.65561,"(740.557 / wtd_mean_FusionHeat) - (std_atomic_mass + -1164.7786)"

@@ -1,0 +1,7 @@
+Complexity,Loss,Equation
+1,79.6827,"21.660769"
+2,50.7209,"inv(wtd_entropy_ElectronAffinity)"
+3,19.810808,"1.316779 / wtd_entropy_ElectronAffinity"
+4,10.4373865,"-0.04727202 / cube(wtd_range_ThermalConductivity)"
+5,8.759086,"-58.046238 - (10.3491 / wtd_range_ThermalConductivity)"
+6,5.8291035,"(-0.7982138 - wtd_mean_Valence) / cube(wtd_range_ThermalConductivity)"

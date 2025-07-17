@@ -1,0 +1,9 @@
+Complexity,Loss,Equation
+1,691.7646,"30.45605"
+3,561.3261,"wtd_mean_Valence * -47.15362"
+4,447.0583,"exp(wtd_entropy_atomic_mass) * 37.33469"
+6,321.07684,"abs(std_atomic_radius - wtd_std_Valence) * 28.53701"
+7,283.31076,"abs(cube((std_atomic_radius - -1.9011927) - wtd_std_Valence))"
+10,277.3811,"square((((wtd_std_Valence + -1.4231958) / -0.3867521) + wtd_entropy_fie) + std_atomic_radius)"
+11,276.7063,"abs(square(((wtd_std_Valence + -1.4149866) / -0.38470685) + (wtd_entropy_fie + std_atomic_radius)))"
+14,260.5304,"square(((wtd_std_Valence + (sin(wtd_std_Valence) + wtd_range_atomic_radius)) / -0.4841321) + (exp(wtd_entropy_fie) + 2.1928768))"

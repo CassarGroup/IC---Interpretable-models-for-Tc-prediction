@@ -1,0 +1,4 @@
+Complexity,Loss,Equation
+1,439.88773,"65.94233"
+3,386.45444,"wtd_range_fie / 0.014503159"
+5,352.9655,"(3038.1353 / wtd_gmean_FusionHeat) - -4588.025"

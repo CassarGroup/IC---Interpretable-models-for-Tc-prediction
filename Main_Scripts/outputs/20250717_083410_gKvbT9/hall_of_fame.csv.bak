@@ -1,0 +1,4 @@
+Complexity,Loss,Equation
+1,690.5727,"50.68826"
+3,586.26355,"31.318554 / wtd_entropy_atomic_radius"
+4,427.26105,"exp(2.3202026 / wtd_entropy_atomic_radius)"

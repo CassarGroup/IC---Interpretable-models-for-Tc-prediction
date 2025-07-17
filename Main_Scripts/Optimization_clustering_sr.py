@@ -6,7 +6,7 @@
 
 import os
 import pickle
-
+# import pandas as pd
 import time
 import numpy as np
 import optuna
@@ -83,32 +83,12 @@ def create_instance(trial):
     maxsize = trial.suggest_int("maxsize", 10, 50)
     maxdepth = trial.suggest_int("maxdepth", 1, 15)
 
-    n_binary_operators = trial.suggest_int("n_binary_operators", 2, 10)
-    options_binary_operators = ["+", "-", "*", "/", "^"]
-    binary_operators = []
-    
-    for i in range(n_binary_operators):
-        operator = trial.suggest_categorical(f"binary_operators_{i}", options_binary_operators)
-        binary_operators.append(operator)
-    binary_operators = list(set(binary_operators))
-
-    n_unary_operators = trial.suggest_int("n_unary_operators", 2, 22)
-    options_unary_operators = ["neg", "square", "cube", "sqrt", "abs", "inv", "exp", "log", "sin", "cos", "tan"]
-    unary_operators = []
-
-    for i in range(n_unary_operators):
-        operator = trial.suggest_categorical(f"unary_operators_{i}", options_unary_operators)
-        unary_operators.append(operator)
-    unary_operators = list(set(unary_operators))
-
-    select_k_features = trial.suggest_int("n_features", 20, 80)
+    select_k_features = trial.suggest_int("n_features", 10, 80)
 
     return Clustering_SR(clusterer=clusterer, 
                               n_iterations=n_iterations, 
                               maxsize=maxsize,
                               maxdepth=maxdepth, 
-                              binary_operators=binary_operators, 
-                              unary_operators=unary_operators, 
                               select_k_features=select_k_features)
 
 def make_objective(X_train, y_train):
@@ -125,12 +105,10 @@ def make_objective(X_train, y_train):
                     n_iterations=model.n_iterations,  
                     maxsize=model.maxsize,
                     maxdepth=model.maxdepth,                   
-                    binary_operators=model.binary_operators,
-                    unary_operators=model.unary_operators,
                     select_k_features=model.select_k_features
                 )
 
-        except ValueError:  # , FloatingPointError):
+        except ValueError:  # FloatingPointError):
             raise optuna.exceptions.TrialPruned()
             
         return score
@@ -160,13 +138,25 @@ def optimization(X_train, y_train):
 superconductivity_data = fetch_ucirepo(id=464)
 
     # Data treatment and splitting
-X = superconductivity_data.data.features
-y = superconductivity_data.data.targets
-X_test, X_train, y_test, y_train = train_test_split(
+if __name__ == "__main__":
+
+    # Loading data
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, "rb") as f:
+            superconductivity_data = pickle.load(f)
+    else:
+        superconductivity_data = fetch_ucirepo(id=464)
+        with open(DATA_FILE, "wb") as f:
+            pickle.dump(superconductivity_data, f)
+
+    # Data treatment and splitting
+    X = superconductivity_data.data.features
+    y = superconductivity_data.data.targets
+    X_test, X_train, y_test, y_train = train_test_split(
         X, y, test_size=TEST_SIZE, random_state=1702
     )
-y_test = np.clip(y_test, 1e-6, None)
-y_train = np.clip(y_train, 1e-6, None)
+    y_test = np.clip(y_test, 1e-6, None)
+    y_train = np.clip(y_train, 1e-6, None)
 
-# Optimization
-resultado = optimization(X_train, y_train)
+    # Optimization
+    resultado = optimization(X_train, y_train)

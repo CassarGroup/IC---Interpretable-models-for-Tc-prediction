@@ -1,0 +1,12 @@
+Complexity,Loss,Equation
+1,14.631737,"4.309573"
+2,12.789881,"exp(wtd_gmean_atomic_radius)"
+3,12.439157,"wtd_gmean_atomic_radius * 3.280594"
+4,10.634491,"exp(wtd_range_FusionHeat - wtd_std_fie)"
+9,10.267687,"exp(wtd_range_FusionHeat - (wtd_mean_atomic_radius * -0.50234956)) - cube(wtd_std_fie)"
+12,10.1640835,"exp(((wtd_std_ThermalConductivity - gmean_atomic_radius) + (-2.7243981 - entropy_ThermalConductivity)) / (wtd_range_FusionHeat + -3.4423528))"
+13,10.112352,"exp(wtd_range_FusionHeat - ((wtd_range_FusionHeat - (wtd_mean_atomic_radius * -0.5456199)) * -0.5456199)) - cube(wtd_std_fie)"
+14,10.050782,"exp(((wtd_std_ThermalConductivity - gmean_atomic_radius) + (-2.7243981 - entropy_ThermalConductivity)) / (wtd_range_FusionHeat + -3.4423528)) ^ 0.95657563"
+15,9.761989,"exp(abs((((wtd_std_ThermalConductivity - gmean_atomic_radius) + -2.93863) - entropy_ThermalConductivity) / (wtd_range_FusionHeat + -2.722089))) ^ 0.7071616"
+22,9.670213,"abs(tan(wtd_range_FusionHeat) + (tan(wtd_range_FusionHeat) + (((abs(abs(wtd_mean_atomic_radius - (wtd_std_ThermalConductivity * 6.3689094))) - 4.388369) - (wtd_std_fie * 3.5072696)) - 4.543503)))"
+24,9.347293,"abs((tan(wtd_range_FusionHeat) + abs(abs(((abs(wtd_mean_atomic_radius) - wtd_std_ThermalConductivity) * 1.0993583) - 5.8689294) - ((wtd_std_fie * -2.8082018) - -2.1091192))) * (range_FusionHeat + 2.0060349))"

@@ -1,0 +1,11 @@
+Complexity,Loss,Equation
+1,835.10297,"58.68674"
+3,572.17706,"wtd_std_Valence * -77.82472"
+4,377.63074,"square(wtd_std_Valence * -9.946843)"
+6,372.1214,"(square(wtd_std_Valence) * 88.80614) + 5.7965546"
+8,370.4349,"((square(wtd_std_Valence) * 88.80614) + 5.7965546) + wtd_std_atomic_radius"
+10,366.32718,"((square(wtd_std_Valence) * 8.365064) + 1.2475188) * (wtd_mean_Valence * -11.054278)"
+11,363.7777,"(wtd_mean_Valence * (square(wtd_std_Valence * 1.9604608) + exp(wtd_mean_FusionHeat))) * -23.539303"
+15,359.184,"((square(wtd_std_Valence * 2.2049158) - -0.8533772) + exp(wtd_std_FusionHeat * 3.2778378)) * (wtd_mean_Valence * -16.489016)"
+17,359.13336,"(((square(wtd_std_Valence * 2.2049158) - -0.8533772) + exp(wtd_std_FusionHeat * 3.2778378)) * (wtd_mean_Valence * -16.489016)) + -1.0281532"
+19,354.84506,"square((((((-5.3862185 * wtd_std_atomic_radius) * -0.9359833) + 5.7464046) * wtd_std_Valence) + wtd_std_Density) + (neg(wtd_std_Valence) + 0.30060434)) - -6.9843273"

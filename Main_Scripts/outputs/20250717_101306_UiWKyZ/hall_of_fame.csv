@@ -1,0 +1,11 @@
+Complexity,Loss,Equation
+1,683.7344,"58.118122"
+3,578.86224,"wtd_std_Valence * -67.29319"
+4,506.57285,"cube(wtd_gmean_Valence * -4.7420697)"
+5,487.51456,"cube(square(wtd_gmean_Valence * 2.4052083))"
+6,470.47577,"cube(wtd_gmean_Valence * (wtd_mean_Valence / 0.18788695))"
+8,468.89795,"cube(wtd_gmean_Valence * (wtd_mean_Valence / 0.18788695)) - mean_fie"
+11,468.2462,"cube(wtd_gmean_Valence * (wtd_mean_Valence / 0.18788695)) - abs(gmean_fie - -0.46161744)"
+12,442.28635,"square(cube((((cos(wtd_std_Valence) ^ 6.9210706) + wtd_gmean_Valence) * -0.6442508) - -1.5133265))"
+15,422.7528,"square(cube(abs(((1.1799345 * wtd_gmean_Valence) - 1.0482824) + (cos(wtd_std_Valence) ^ 8.210996))) - mean_fie)"
+17,422.11017,"square(cube(abs(((1.1799345 * wtd_gmean_Valence) - 1.0482824) + (cos(wtd_std_Valence) ^ 8.210996))) - mean_fie) - -0.5256394"

@@ -1,0 +1,4 @@
+Complexity,Loss,Equation
+1,391.15176,"51.78232"
+3,343.16064,"14.531206 / wtd_std_Density"
+5,243.15453,"(9723.6045 / wtd_gmean_Density) - -12789.573"

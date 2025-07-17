@@ -1,0 +1,12 @@
+Complexity,Loss,Equation
+1,6.079993,"4.0113544"
+3,5.5123663,"wtd_mean_atomic_mass + 1.7902564"
+4,5.507955,"wtd_mean_atomic_mass + abs(range_fie)"
+5,5.4414597,"(wtd_mean_Valence + 3.4810596) - gmean_FusionHeat"
+6,5.2067256,"wtd_mean_Valence + (4.3632507 - exp(wtd_entropy_ElectronAffinity))"
+8,4.881116,"(wtd_gmean_Valence + (3.9802823 - exp(wtd_entropy_ElectronAffinity))) - gmean_FusionHeat"
+10,4.7973523,"((2.6455219 - exp(wtd_entropy_ElectronAffinity)) + (wtd_mean_Valence - gmean_FusionHeat)) / 0.6340338"
+15,4.784977,"(((wtd_mean_Valence + 1.2711549) - wtd_mean_FusionHeat) * 2.3619742) - (exp(sin(wtd_entropy_ElectronAffinity)) / (wtd_gmean_atomic_radius / 1.299824))"
+16,4.7811456,"((6.639782 - (gmean_FusionHeat * 0.96634644)) - (exp(wtd_entropy_ElectronAffinity) + ((-0.0923298 / entropy_fie) + 2.4531112))) + wtd_mean_Valence"
+18,4.744512,"((4.817404 - (1.2745122 * gmean_FusionHeat)) + wtd_mean_Valence) - (exp(wtd_entropy_ElectronAffinity) + (4.613337 / (wtd_entropy_ThermalConductivity + (4.817404 + wtd_mean_Valence))))"
+19,4.6822596,"wtd_mean_Valence + ((5.2214565 - (gmean_FusionHeat * 2.3619742)) - (exp(wtd_entropy_ElectronAffinity) + (4.8672853 / abs(wtd_entropy_ThermalConductivity + (wtd_mean_Valence + 3.7970424)))))"

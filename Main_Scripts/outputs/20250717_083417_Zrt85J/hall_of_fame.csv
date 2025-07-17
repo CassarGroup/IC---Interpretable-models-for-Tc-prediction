@@ -1,0 +1,5 @@
+Complexity,Loss,Equation
+1,130.88737,"81.31176"
+3,100.04892,"46.367077 / wtd_range_ElectronAffinity"
+4,96.25918,"14.734425 / cube(wtd_range_ElectronAffinity)"
+5,82.289764,"(-887.9817 / wtd_mean_FusionHeat) + -1342.1638"

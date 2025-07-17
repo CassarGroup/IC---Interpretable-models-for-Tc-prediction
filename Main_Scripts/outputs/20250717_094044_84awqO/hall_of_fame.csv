@@ -1,0 +1,10 @@
+Complexity,Loss,Equation
+1,114.801765,"11.849024"
+3,105.9356,"wtd_entropy_ThermalConductivity * 8.735036"
+4,83.000755,"exp(range_fie + 3.1261356)"
+6,76.94643,"exp(range_fie + (wtd_entropy_atomic_radius + 3.01349))"
+7,70.51105,"exp(sin(range_fie + wtd_entropy_atomic_radius) + 2.8927426)"
+9,70.349625,"exp(sin(wtd_entropy_atomic_radius + range_fie) + 3.073082) - 3.622545"
+11,69.83564,"exp((range_fie + (sin(wtd_entropy_atomic_radius) + 3.2485945)) ^ 0.9161767) + wtd_range_Valence"
+12,69.263535,"(exp(range_fie + (sin(sin(wtd_entropy_atomic_radius)) + 3.1732879)) ^ 0.91984266) + wtd_range_Valence"
+13,68.22317,"((exp((range_fie + sin(wtd_entropy_atomic_radius)) + 2.5357163) ^ 0.7891676) + wtd_range_Valence) * 2.554152"

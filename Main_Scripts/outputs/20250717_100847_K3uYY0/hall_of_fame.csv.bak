@@ -1,0 +1,10 @@
+Complexity,Loss,Equation
+1,22.927567,"6.466067"
+3,21.490635,"wtd_std_FusionHeat + 7.004014"
+4,19.164429,"square(wtd_std_FusionHeat + 3.0578759)"
+6,18.182203,"square(wtd_std_FusionHeat + 3.0578759) + entropy_ThermalConductivity"
+10,18.014282,"((12.306311 / exp(sqrt(abs(wtd_std_FusionHeat)))) - -0.5403023) + entropy_ThermalConductivity"
+12,16.226456,"((0.40876484 ^ cos(exp(wtd_gmean_Valence) - square(wtd_std_FusionHeat))) * 3.487205) - std_ThermalConductivity"
+19,16.10318,"(exp(square(cos(wtd_gmean_Valence - 0.96376354)) * (0.38899833 ^ cos(exp(abs(wtd_gmean_Valence - 0.20733133))))) + wtd_mean_Valence) - -0.70514923"
+21,15.511872,"((0.40876484 ^ (cos(exp(wtd_gmean_Valence) - square(wtd_std_FusionHeat)) * (0.40876484 ^ cos(exp(wtd_gmean_Valence - square(wtd_std_FusionHeat)))))) - entropy_FusionHeat) - range_fie"
+22,15.458944,"abs(entropy_ThermalConductivity + ((abs(wtd_std_atomic_radius + (((wtd_mean_Valence - -0.7350441) / range_FusionHeat) / (inv(square(inv(wtd_mean_Valence))) + -1.3224036))) ^ 0.25417194) - -4.169578))"
