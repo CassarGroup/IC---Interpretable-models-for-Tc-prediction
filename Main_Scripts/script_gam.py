@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import statistics as st
 import pygam
 from pygam import s
@@ -11,7 +12,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 
 RANDOM_SEED = 1203
-TEST_SIZE = 0.9
+TEST_SIZE = 0.1
 
 class Clustering_GAM(BaseEstimator, RegressorMixin):
     def __init__(self, clusterer, distribution, link, n_splines, lam):
@@ -24,7 +25,9 @@ class Clustering_GAM(BaseEstimator, RegressorMixin):
     def fit(self, X, y):
 
         self.scaler_X_ = StandardScaler()
-        X = self.scaler_X_.fit_transform(X)
+        X_scaled = self.scaler_X_.fit_transform(X)
+
+        X = pd.DataFrame(X_scaled, columns=X.columns, index=X.index)
         
         self.X = X
         self.y = y
@@ -32,17 +35,18 @@ class Clustering_GAM(BaseEstimator, RegressorMixin):
         # Fit the clustering algorithm
         self.clusterer_ = clone(
             self.clusterer
-        )  # Construct a new unfitted estimator with the same parameters for each entrance
+        )  
+        # Construct a new unfitted estimator with the same parameters for each entrance
         
-        cluster_labels = self.clusterer_.fit_predict(
-            X
-        )  # Use the fit/predict method for data clustering
+        cluster_labels = self.clusterer_.fit_predict(X)  
+        
         self.cluster_labels_ = cluster_labels
 
         unique_clusters = np.unique(cluster_labels)
         valid_clusters = [c for c in unique_clusters if c != -1]
 
         self.models_ = {}
+
         # For each cluster, fit a supervised model
         self.data_by_cluster_ = {}
         
@@ -53,8 +57,8 @@ class Clustering_GAM(BaseEstimator, RegressorMixin):
 
         for cluster in valid_clusters:  # identify the classes
             idx = np.where(cluster_labels == cluster)[0]
-            X_cluster = X[idx]
-            y_cluster = y[idx]
+            X_cluster = X.iloc[idx]
+            y_cluster = y.iloc[idx]
             y_cluster = np.clip(y_cluster, 1e-6, np.inf)
 
             self.data_by_cluster_[cluster] = {
@@ -80,7 +84,7 @@ class Clustering_GAM(BaseEstimator, RegressorMixin):
         
         X = self.scaler_X_.transform(X)
         cluster_labels = self.clusterer_.predict(X)
-        y_pred = np.empty(X.shape[0])
+        y_pred = np.zeros(X.shape[0])
         
         for cluster in np.unique(cluster_labels):
             idx = np.where(cluster_labels == cluster)[0]
@@ -101,8 +105,8 @@ def cross_validation(X, y, clusterer, distribution_name, link_name, lam, n_splin
     split = 0
     for train_idx, test_idx in kf.split(X):
         
-            X_train, X_test = X[train_idx], X[test_idx]
-            y_train, y_test = y[train_idx], y[test_idx]
+            X_train, X_test = X.iloc[train_idx], X.iloc[test_idx]
+            y_train, y_test = y.iloc[train_idx], y.iloc[test_idx]
 
             model = Clustering_GAM(clusterer=clone(clusterer), 
                           distribution=distribution_name, 
@@ -128,8 +132,11 @@ def cross_validation(X, y, clusterer, distribution_name, link_name, lam, n_splin
     return all_rmse
 
 def train_validation(X, y, clusterer, distribution_name, link_name, lam, n_splines):
+
+    TEST_SIZE = 0.1
+    RANDOM_SEED = 1203
     
-    X_validation, X_train, y_validation, y_train = train_test_split(
+    X_train, X_validation, y_train, y_validation = train_test_split(
         X, y, test_size=TEST_SIZE, random_state=RANDOM_SEED
     )
         

@@ -1,0 +1,11 @@
+Complexity,Loss,Equation
+1,239.7465,"66.46545"
+3,164.76721,"square(inv(range_atomic_mass))"
+4,135.92735,"inv(range_atomic_mass / 8.754389)"
+5,120.5712,"inv(square(range_atomic_mass)) / std_atomic_radius"
+6,67.85736,"cube(exp(square(wtd_gmean_fie)) - -1.7515484)"
+7,67.460304,"exp(square(wtd_gmean_fie - -1.1151164)) - -5.0159993"
+8,67.14536,"cube(exp(square(wtd_gmean_fie - -0.0046962015)) - -1.7515484)"
+9,67.07287,"abs(cube(exp(square(wtd_gmean_fie - -0.0058374004)) - -1.7469031))"
+10,66.75186,"cube(exp(square(wtd_gmean_fie - -0.040613364)) - -1.5838472) - -0.6448785"
+13,39.027393,"cube(exp((square(wtd_gmean_fie) - mean_FusionHeat) - (cube(wtd_mean_Density) + 0.45333913)) + 0.45333913)"

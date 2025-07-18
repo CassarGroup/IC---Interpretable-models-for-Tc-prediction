@@ -26,6 +26,7 @@ class Clustering_SR(BaseEstimator, RegressorMixin):
 
         self.scaler_X_ = StandardScaler()
         X_scaled = self.scaler_X_.fit_transform(X)
+        
         X = pd.DataFrame(X_scaled, columns=X.columns, index=X.index)
 
         self.X = X

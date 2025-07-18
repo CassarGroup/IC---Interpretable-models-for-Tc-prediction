@@ -1,0 +1,11 @@
+Complexity,Loss,Equation
+1,156.98222,"61.166676"
+3,156.68361,"wtd_gmean_fie + 60.241234"
+4,145.75734,"cube(wtd_gmean_fie + 3.0390713)"
+5,134.62126,"(wtd_entropy_atomic_mass * 111.70025) + -14.496301"
+6,129.7158,"exp((wtd_entropy_atomic_mass + 1.9034082) * 1.6154435)"
+9,104.64158,"exp(exp((wtd_entropy_atomic_mass + wtd_mean_Density) - -1.4123182)) * 1.2066896"
+11,104.62894,"(exp(exp((wtd_entropy_atomic_mass + wtd_mean_Density) - -1.4123182)) * 1.2066896) + 0.027056634"
+12,104.30399,"(exp(exp(wtd_entropy_atomic_mass + (wtd_mean_Density - -1.4123182))) * 1.2066896) + log(wtd_std_ThermalConductivity)"
+13,102.832825,"(exp(exp((wtd_entropy_atomic_mass + wtd_mean_Density) - -1.4123182)) * (wtd_mean_FusionHeat / wtd_range_FusionHeat)) + 0.027056634"
+14,100.90954,"(exp(exp((wtd_mean_Density - -1.4123182) + wtd_entropy_atomic_mass)) * (wtd_mean_ElectronAffinity ^ neg(wtd_mean_ThermalConductivity))) + 0.027056634"

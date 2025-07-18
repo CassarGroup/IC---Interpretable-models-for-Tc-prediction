@@ -32,7 +32,7 @@ from ucimlrepo import fetch_ucirepo
 
 from script_glm import Clustering_GLM, cross_validation
 
-TEST_SIZE = 0.9
+TEST_SIZE = 0.1
 NUM_FOLDS = 5
 N_TRIALS = 100
 DATA_FILE = "superconductivity_data.pkl"
@@ -170,7 +170,7 @@ if __name__ == "__main__":
     # Data treatment and splitting
     X = superconductivity_data.data.features
     y = superconductivity_data.data.targets
-    X_test, X_train, y_test, y_train = train_test_split(
+    X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=TEST_SIZE, random_state=1702
     )
     y_test = np.clip(y_test, 1e-6, None)

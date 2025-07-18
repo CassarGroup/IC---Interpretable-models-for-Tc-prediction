@@ -1,0 +1,10 @@
+Complexity,Loss,Equation
+1,25.942345,"20.662493"
+3,25.452612,"cube(exp(wtd_mean_fie))"
+4,25.427418,"exp(wtd_mean_fie) / 0.13111849"
+5,24.707783,"cube(exp(wtd_mean_fie)) + wtd_mean_fie"
+7,23.97672,"square((cube(wtd_mean_fie) / wtd_std_atomic_mass) + 3.0931687)"
+8,15.3444,"inv(abs(inv(wtd_range_atomic_radius) + -317.2733) ^ -0.51426536)"
+9,11.730587,"inv(inv(abs(inv(wtd_range_atomic_radius) + -161.98975) ^ 0.5675047))"
+12,11.105333,"inv(inv(abs(inv(wtd_range_atomic_radius) + -150.01918)) ^ tan(cube(sqrt(wtd_std_ThermalConductivity))))"
+13,10.982709,"inv(inv(abs(inv(wtd_range_atomic_radius) + -154.14256)) ^ tan(cube(sqrt(abs(wtd_std_ThermalConductivity)))))"

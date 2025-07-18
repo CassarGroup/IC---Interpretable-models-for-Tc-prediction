@@ -1,0 +1,9 @@
+Complexity,Loss,Equation
+1,55.8704,"17.26001"
+3,49.023468,"inv(square(range_atomic_mass))"
+4,48.992542,"inv(sin(square(range_atomic_mass)))"
+5,43.92027,"cube(exp(square(tan(wtd_range_ElectronAffinity))))"
+6,42.333687,"tan(wtd_gmean_ElectronAffinity ^ -482.02048) + 15.893392"
+7,34.113007,"abs((211.00829 / cube(wtd_gmean_ElectronAffinity)) - 248.37337)"
+8,22.148731,"cube(exp(square(cube(tan(wtd_range_ElectronAffinity))))) / wtd_entropy_atomic_mass"
+10,21.033657,"inv(tan(wtd_gmean_ElectronAffinity / tan(wtd_mean_fie / -478.75363))) + 19.72935"

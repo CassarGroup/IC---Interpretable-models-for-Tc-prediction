@@ -1,0 +1,6 @@
+Complexity,Loss,Equation
+2,2413.0898,"exp(wtd_entropy_Valence)"
+3,2185.6597,"square(exp(wtd_entropy_Valence))"
+4,2122.5142,"exp(wtd_entropy_Valence / wtd_mean_ElectronAffinity)"
+5,333.08682,"square(exp(wtd_entropy_Valence / wtd_std_atomic_mass))"
+10,224.66397,"exp(sin(inv(wtd_gmean_atomic_mass) / sin(sin(wtd_gmean_atomic_radius))) + 3.4725811)"

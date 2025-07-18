@@ -1,0 +1,10 @@
+Complexity,Loss,Equation
+1,96.355835,"22.610016"
+3,93.41272,"wtd_mean_Density * -31.135164"
+4,77.967766,"exp(wtd_entropy_Density + 3.1755965)"
+5,55.74469,"(wtd_mean_Density * -870.44525) - 610.57214"
+7,55.64192,"((wtd_mean_Density * -870.44525) - 610.57214) + -0.22788188"
+8,55.627716,"abs(610.3756 - ((wtd_mean_Density * -869.3872) + 0.20242614))"
+10,20.393167,"abs((221.79126 - (wtd_entropy_FusionHeat * -162.7311)) + (-292.92862 - wtd_std_ElectronAffinity))"
+13,20.377447,"abs(abs(((221.79126 - (wtd_entropy_FusionHeat * -162.7311)) + (-292.92862 - wtd_std_ElectronAffinity)) - 0.016081171))"
+16,17.208399,"abs(wtd_std_fie * ((221.79126 - (wtd_entropy_FusionHeat * -162.7311)) + ((-292.92862 - wtd_std_fie) - 0.016081171))) + -1.3618461"

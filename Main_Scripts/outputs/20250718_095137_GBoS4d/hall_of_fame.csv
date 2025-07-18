@@ -1,0 +1,7 @@
+Complexity,Loss,Equation
+1,903.87366,"61.53201"
+3,892.3841,"60.937183 - gmean_ElectronAffinity"
+4,809.9672,"square(std_Density + 7.4985104)"
+5,664.84375,"34.78269 - (gmean_ElectronAffinity * 42.155994)"
+7,654.1228,"52.807518 - (gmean_ElectronAffinity * (std_atomic_mass / 0.039886557))"
+9,612.8438,"37.765175 - (gmean_ElectronAffinity * ((std_atomic_mass + 2.9810739) * 9.653451))"

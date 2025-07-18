@@ -1,0 +1,10 @@
+Complexity,Loss,Equation
+1,17.818727,"73.55336"
+3,16.591778,"-32.3807 / wtd_range_Valence"
+4,16.53967,"square(range_atomic_mass + -8.704818)"
+6,16.497942,"square(range_atomic_mass + -9.111374) + -6.9170995"
+8,15.910409,"square((range_atomic_mass + wtd_mean_Density) + -8.277067) + -4.440913"
+10,14.360772,"cube(square(tan(wtd_range_fie))) - neg(exp(wtd_gmean_fie + 3.2572591))"
+12,11.945647,"cube(square(tan(wtd_range_fie))) + (-2.2530267 - neg(exp(wtd_gmean_fie + 3.2572591)))"
+13,11.571181,"(cube(square(tan(neg(wtd_range_fie)))) - neg(exp(wtd_gmean_fie + 3.113353))) + 6.8160977"
+14,10.29817,"square(cube(tan(wtd_range_fie)) + wtd_gmean_fie) + (-0.02824715 - neg(exp(wtd_gmean_fie + 3.113353)))"

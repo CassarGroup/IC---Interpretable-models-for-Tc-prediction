@@ -1,0 +1,10 @@
+Complexity,Loss,Equation
+1,554.3429,"71.13402"
+3,318.72003,"37.992218 / wtd_entropy_Valence"
+5,316.34448,"(37.992218 / wtd_entropy_Valence) + wtd_range_atomic_radius"
+8,272.9961,"abs(((119.074936 / wtd_entropy_Valence) + -92.3991) * -0.5232131)"
+9,193.32368,"((wtd_entropy_atomic_mass * wtd_range_atomic_radius) * 407.51727) + (wtd_range_atomic_radius * -497.88202)"
+11,154.59271,"(((wtd_entropy_atomic_mass * wtd_range_atomic_radius) * 521.0794) + (wtd_range_atomic_radius * -618.482)) * wtd_gmean_fie"
+13,153.75644,"(((wtd_range_atomic_radius * -624.0575) + (wtd_entropy_atomic_mass * (wtd_range_atomic_radius * 525.332))) * wtd_gmean_fie) - 1.1617411"
+15,153.15427,"(((wtd_entropy_atomic_mass * (wtd_range_atomic_radius * 479.44147)) + (wtd_range_atomic_radius * -566.3947)) * (wtd_gmean_fie / wtd_std_fie)) - 0.14119253"
+16,147.34221,"((wtd_entropy_atomic_mass * (wtd_range_atomic_radius * 525.332)) + ((wtd_range_atomic_radius * -624.0575) - cos(525.332 / wtd_entropy_atomic_mass))) * wtd_gmean_fie"

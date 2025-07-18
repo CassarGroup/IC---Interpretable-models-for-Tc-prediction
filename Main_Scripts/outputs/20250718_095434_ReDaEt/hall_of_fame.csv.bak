@@ -1,0 +1,13 @@
+Complexity,Loss,Equation
+1,153.90489,"45.013287"
+3,142.04045,"wtd_entropy_ElectronAffinity * 20.344418"
+4,137.39508,"cube(wtd_entropy_ElectronAffinity * 1.5493453)"
+5,134.17218,"sqrt(cube(wtd_entropy_ElectronAffinity * 5.5065393))"
+6,131.64075,"exp((wtd_entropy_fie * 1.0924195) - -1.9386564)"
+8,131.56195,"exp((wtd_entropy_fie * 1.0924195) - -1.9386564) + -0.31231314"
+10,130.0562,"exp(((wtd_entropy_fie * 1.0768093) - -2.1629546) + (wtd_std_fie * -0.29440227))"
+11,128.03378,"cube(exp(abs(sqrt(wtd_entropy_ElectronAffinity * 0.6991103)))) - cos(inv(wtd_gmean_atomic_radius))"
+13,127.24147,"abs((cos(wtd_entropy_fie * -304.91864) / wtd_entropy_atomic_mass) + ((33.329197 ^ wtd_std_fie) - -33.651955))"
+14,125.65641,"abs(((log(wtd_entropy_atomic_mass) / cos(wtd_entropy_fie * -304.91864)) + -33.651955) - (33.329197 ^ wtd_std_fie))"
+16,117.196686,"abs((wtd_mean_ThermalConductivity / (cos(wtd_entropy_fie * -304.91864) * square(wtd_std_fie))) + (-33.651955 - (33.329197 ^ wtd_std_fie)))"
+17,116.038605,"abs((log(wtd_entropy_atomic_mass) / (cos(wtd_entropy_fie * -304.91864) * square(wtd_std_fie))) + (-33.651955 - (33.329197 ^ wtd_std_fie)))"

@@ -1,0 +1,11 @@
+Complexity,Loss,Equation
+1,54.067688,"23.494802"
+3,46.655434,"wtd_entropy_FusionHeat * 23.95426"
+5,46.594193,"(wtd_entropy_FusionHeat * 24.490446) - 0.7831089"
+7,23.996872,"22.482786 - tan(exp(wtd_gmean_ElectronAffinity + 35.158165))"
+9,18.835583,"22.482786 - (tan(exp(wtd_gmean_ElectronAffinity + 35.158165)) / 0.7128283)"
+11,18.253275,"(22.482786 - (tan(exp(wtd_gmean_ElectronAffinity + 35.158165)) / 0.7128283)) + 0.4688655"
+12,17.25303,"22.860806 - (tan(exp(wtd_gmean_ElectronAffinity + 35.158165)) / inv(wtd_range_fie - wtd_gmean_ThermalConductivity))"
+13,17.161442,"22.860806 - (tan(exp(wtd_gmean_ElectronAffinity + 35.158165)) / inv(exp(wtd_gmean_ElectronAffinity) - wtd_gmean_ThermalConductivity))"
+14,17.091312,"(22.860806 - (tan(exp(wtd_gmean_ElectronAffinity + 35.158165)) / inv(wtd_range_fie - wtd_gmean_ThermalConductivity))) + 0.27766058"
+15,17.06874,"tan(0.66404796) + (22.482786 - (tan(exp(35.158165 + wtd_gmean_ElectronAffinity)) / inv(wtd_range_fie - wtd_gmean_ThermalConductivity)))"

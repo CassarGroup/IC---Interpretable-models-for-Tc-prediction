@@ -36,7 +36,7 @@ from script_gam import Clustering_GAM, train_validation
 now = time.localtime()
 data = time.strftime("%d_%m_%Y_%H_%M_%S", now)
 
-TEST_SIZE = 0.9
+TEST_SIZE = 0.1
 NUM_FOLDS = 5
 N_TRIALS = 100
 DATA_FILE = "superconductivity_data.pkl"
@@ -170,7 +170,7 @@ if __name__ == "__main__":
     # Data treatment and splitting
     X = superconductivity_data.data.features
     y = superconductivity_data.data.targets
-    X_test, X_train, y_test, y_train = train_test_split(
+    X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=TEST_SIZE, random_state=1702
     )
     y_test = np.clip(y_test, 1e-6, None)

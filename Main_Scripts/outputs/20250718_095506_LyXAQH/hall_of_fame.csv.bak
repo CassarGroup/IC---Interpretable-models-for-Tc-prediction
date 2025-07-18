@@ -1,0 +1,7 @@
+Complexity,Loss,Equation
+1,212.51018,"113.428474"
+4,199.9615,"exp(5.196358 - wtd_range_ElectronAffinity)"
+6,199.73898,"exp(5.196358 - wtd_range_ElectronAffinity) + wtd_std_FusionHeat"
+7,198.89066,"exp(4.9173856 - cube(wtd_range_ElectronAffinity * 1.2336456))"
+8,198.80167,"exp(5.2988186 - (wtd_range_ElectronAffinity * (wtd_range_ElectronAffinity + wtd_entropy_Valence)))"
+10,198.24667,"exp(5.2988186 - (wtd_range_ElectronAffinity * (wtd_range_fie + exp(tan(wtd_entropy_ElectronAffinity)))))"

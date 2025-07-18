@@ -1,0 +1,12 @@
+Complexity,Loss,Equation
+1,699.9319,"49.251335"
+3,404.59225,"wtd_entropy_Valence ^ -4.58219"
+4,403.04678,"cube(wtd_entropy_Valence ^ -1.5168056)"
+5,334.50497,"(153.52217 ^ wtd_range_fie) + -81.035225"
+6,331.73904,"(-651.76184 / sin(wtd_range_fie)) + 841.04285"
+7,249.46637,"(186.8476 / (wtd_entropy_atomic_mass + wtd_entropy_ElectronAffinity)) - 280.09027"
+8,247.47949,"exp(2.4049785 / (wtd_entropy_atomic_mass + wtd_entropy_ElectronAffinity)) - 25.288898"
+10,247.30951,"((147.13489 - cube(wtd_mean_atomic_mass)) / (wtd_entropy_ElectronAffinity + wtd_entropy_atomic_mass)) - 212.62308"
+11,243.60689,"exp((2.0791557 - cube(wtd_gmean_atomic_mass)) / (wtd_entropy_atomic_mass + wtd_entropy_ElectronAffinity)) - 14.758248"
+13,242.37964,"(exp((2.0791557 - cube(wtd_gmean_atomic_mass)) / (wtd_entropy_ElectronAffinity + wtd_entropy_atomic_mass)) - 16.828842) + wtd_range_ElectronAffinity"
+15,242.13322,"(exp((2.0791557 - cube(wtd_gmean_atomic_mass)) / (wtd_entropy_ElectronAffinity + wtd_entropy_atomic_mass)) - (wtd_range_Density - -16.828842)) + wtd_range_ElectronAffinity"

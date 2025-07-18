@@ -1,0 +1,7 @@
+Complexity,Loss,Equation
+1,14.098886,"18.633339"
+3,10.388866,"wtd_range_FusionHeat * 91.42176"
+5,9.536648,"(wtd_gmean_atomic_radius * 2020.441) + -1730.361"
+8,6.65276,"(wtd_gmean_atomic_radius * 25.13768) - (square(wtd_range_ElectronAffinity) ^ 27.821571)"
+10,2.820401,"(wtd_gmean_atomic_radius * 3551.3127) + (-3052.8982 - (square(wtd_range_ElectronAffinity) ^ -62.375572))"
+12,0.22241183,"(wtd_gmean_atomic_radius * 5553.3003) + ((-4785.697 - (square(wtd_range_ElectronAffinity) ^ -68.59388)) + wtd_mean_Valence)"

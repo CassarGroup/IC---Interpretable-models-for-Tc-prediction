@@ -1,0 +1,11 @@
+Complexity,Loss,Equation
+1,579.58344,"72.423805"
+3,452.2262,"0.013187131 ^ wtd_mean_atomic_radius"
+5,438.00522,"(0.015599426 ^ wtd_mean_atomic_radius) / wtd_entropy_Valence"
+6,326.66498,"square(wtd_entropy_FusionHeat * (91.66101 ^ wtd_std_ElectronAffinity))"
+8,326.1209,"square(wtd_entropy_FusionHeat * (94.57446 ^ wtd_std_ElectronAffinity)) - wtd_entropy_atomic_radius"
+10,324.75836,"square(wtd_entropy_FusionHeat * (wtd_entropy_FusionHeat + (276.38126 ^ (wtd_std_ElectronAffinity + -0.12488121))))"
+11,315.4187,"square(neg(((wtd_entropy_FusionHeat * 7.973321) - 12.1870775) + (286.0942 ^ wtd_std_ElectronAffinity)))"
+12,308.9193,"square((((wtd_entropy_FusionHeat + 3.8204718) * wtd_entropy_FusionHeat) - 7.4974627) + (216.58224 ^ wtd_std_ElectronAffinity))"
+13,303.93805,"square(neg((wtd_entropy_FusionHeat * ((wtd_entropy_FusionHeat * 7.973321) - 12.1870775)) + (286.0942 ^ wtd_std_ElectronAffinity)))"
+14,301.45813,"square(neg((abs(entropy_FusionHeat) * ((wtd_entropy_FusionHeat * 7.973321) - 12.1870775)) + (286.0942 ^ wtd_std_ElectronAffinity)))"

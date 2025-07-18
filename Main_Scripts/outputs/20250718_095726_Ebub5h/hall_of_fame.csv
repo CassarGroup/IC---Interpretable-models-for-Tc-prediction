@@ -1,0 +1,6 @@
+Complexity,Loss,Equation
+1,0.84842414,"16.116001"
+3,0.10855734,"wtd_gmean_ThermalConductivity * 34.9593"
+5,0.09544675,"(wtd_gmean_ThermalConductivity * 40.40647) + -2.508091"
+7,0.09500011,"(wtd_gmean_ThermalConductivity * (wtd_gmean_ElectronAffinity + 40.06698)) + -2.2743852"
+8,0.0950001,"(inv(wtd_entropy_atomic_radius) + (wtd_gmean_ThermalConductivity * 40.90871)) + -2.1648917"

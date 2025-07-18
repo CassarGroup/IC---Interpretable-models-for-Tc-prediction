@@ -1,0 +1,8 @@
+Complexity,Loss,Equation
+1,89.21798,"26.162983"
+3,30.92009,"wtd_entropy_atomic_radius / 0.01228923"
+4,29.576138,"tan(wtd_entropy_atomic_radius) / 0.01317431"
+6,12.817105,"inv(wtd_entropy_atomic_radius / -12.387431) - -65.08105"
+7,12.7196455,"inv(sin(wtd_entropy_atomic_radius / -11.500623)) - -62.146664"
+9,12.392859,"(inv(sin(wtd_entropy_atomic_radius) / -12.115804) - -64.59155) + wtd_gmean_Valence"
+11,11.396349,"(inv(sin(wtd_entropy_atomic_radius) / -13.250647) - (wtd_range_FusionHeat * -283.3759)) + wtd_gmean_Valence"

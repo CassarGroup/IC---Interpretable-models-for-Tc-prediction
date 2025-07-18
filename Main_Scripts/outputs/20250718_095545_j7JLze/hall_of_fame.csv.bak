@@ -1,0 +1,6 @@
+Complexity,Loss,Equation
+1,233.52026,"80.78333"
+3,163.62177,"44.501263 / wtd_entropy_atomic_radius"
+5,114.46161,"(wtd_mean_Density * 330.9818) - -294.59955"
+6,114.46113,"abs((wtd_mean_Density * 330.9818) - -294.62125)"
+7,27.139956,"tan(445.80933 ^ sin(wtd_entropy_Valence)) + 84.50125"

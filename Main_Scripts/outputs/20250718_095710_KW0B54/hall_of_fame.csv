@@ -1,0 +1,9 @@
+Complexity,Loss,Equation
+1,24.527134,"11.52764"
+3,13.838198,"wtd_entropy_fie ^ -2.4251285"
+5,10.799913,"22.318283 - (wtd_entropy_FusionHeat * 114.526)"
+6,1.192728,"16.111593 - tan(wtd_entropy_FusionHeat * 34.459217)"
+8,1.1745975,"(16.007305 - tan(wtd_entropy_FusionHeat * 34.460236)) ^ 1.0034424"
+10,0.83443916,"(wtd_entropy_FusionHeat * -21.45583) + (17.307604 - tan(wtd_entropy_FusionHeat * 34.344482))"
+12,0.7986828,"((wtd_entropy_FusionHeat * -21.457628) + 17.745382) - (tan(wtd_entropy_FusionHeat * 34.041553) * 1.3583462)"
+14,0.72824264,"((wtd_entropy_FusionHeat * (-21.457628 - 1.3583462)) + 17.745382) - (tan(wtd_entropy_FusionHeat * 34.041553) * 1.3583462)"

@@ -1,0 +1,7 @@
+Complexity,Loss,Equation
+1,527.2375,"76.04238"
+3,496.4781,"-65.72931 / wtd_gmean_atomic_radius"
+4,490.75534,"square(-7.506072 / wtd_gmean_atomic_radius)"
+5,374.9605,"(wtd_range_atomic_mass * 199.55927) + 237.56151"
+8,354.511,"(cube(wtd_range_atomic_mass * -22.673803) / -94.77855) + 140.10005"
+14,321.3592,"(wtd_gmean_ElectronAffinity * -166.28458) + ((((wtd_std_Valence * -471.68552) + -133.8754) - tan(wtd_gmean_atomic_radius)) + -118.2072)"

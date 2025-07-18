@@ -1,0 +1,7 @@
+Complexity,Loss,Equation
+1,24.193607,"87.82001"
+3,23.9377,"87.260345 - wtd_mean_ElectronAffinity"
+4,10.550446,"exp(wtd_entropy_ThermalConductivity) * 45.183994"
+5,4.531347,"(1.8461559 / wtd_std_fie) + 40.50694"
+6,3.7179153,"sqrt((56.372845 / wtd_std_fie) * 5.4139576)"
+7,0.8068515,"((3.207589 / wtd_std_fie) * wtd_std_ElectronAffinity) + 46.947517"

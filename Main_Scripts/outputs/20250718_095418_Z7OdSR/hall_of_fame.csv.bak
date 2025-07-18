@@ -1,0 +1,7 @@
+Complexity,Loss,Equation
+1,12.198563,"11.45642"
+2,3.8538,"exp(gmean_FusionHeat)"
+3,0.41393724,"2.3000686 / range_atomic_radius"
+4,0.22255659,"cube(range_atomic_mass * 2.8136568)"
+5,0.21483533,"(range_atomic_mass * 41.30565) + -21.23653"
+10,0.20003513,"cube(log(cube(std_atomic_mass * 3.0018423) ^ wtd_gmean_Density)) / 0.24128026"

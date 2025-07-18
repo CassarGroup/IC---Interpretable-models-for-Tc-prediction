@@ -1,0 +1,7 @@
+Complexity,Loss,Equation
+1,87.209984,"12.707768"
+3,26.678783,"inv(abs(wtd_range_atomic_radius))"
+4,22.543306,"inv(wtd_range_atomic_radius / -1.153641)"
+6,15.907056,"exp(inv(tan(wtd_mean_ElectronAffinity / -0.03318995)))"
+8,15.645004,"inv(exp(tan(wtd_mean_ElectronAffinity / -0.03624764))) + wtd_entropy_atomic_radius"
+9,5.361938,"abs(tan(inv(-0.34438246 - neg(wtd_range_atomic_mass))) / -0.07092946)"

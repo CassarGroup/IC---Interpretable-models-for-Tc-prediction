@@ -1,0 +1,5 @@
+Complexity,Loss,Equation
+1,8.24,"119.9"
+3,2.1745262,"wtd_entropy_fie * 64.70477"
+5,1.9984095,"(wtd_entropy_ElectronAffinity * 26.631058) + 96.98616"
+8,1.933707,"tan((wtd_entropy_fie * 791.08936) + 888.37836) + 120.648994"

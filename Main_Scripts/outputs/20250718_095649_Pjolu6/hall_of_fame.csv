@@ -1,0 +1,10 @@
+Complexity,Loss,Equation
+1,78.240005,"23.399965"
+4,35.90161,"tan(wtd_range_fie ^ 2.2830255)"
+6,35.004063,"tan(wtd_range_fie ^ 2.291078) - 2.291078"
+7,30.054642,"tan(wtd_range_fie ^ (square(wtd_std_Valence) + 2.0290182))"
+8,25.08166,"tan(wtd_range_fie ^ exp(square(wtd_std_Valence) + 0.5676691))"
+10,22.875385,"tan(wtd_range_fie ^ exp(0.5676691 + square(wtd_std_Valence))) + -1.5802367"
+13,22.292963,"tan(wtd_range_fie ^ exp(square(wtd_std_Valence) + 0.5697271)) + (cube(wtd_range_Valence) / 0.014690974)"
+14,21.672749,"(wtd_range_Valence / (wtd_mean_ThermalConductivity / 29.762197)) + tan(wtd_range_fie ^ (square(exp(wtd_std_Valence)) + 231.7994))"
+18,19.635477,"abs((0.46097675 - wtd_range_atomic_mass) / (wtd_mean_ThermalConductivity / neg(29.762197))) + tan(wtd_range_fie ^ (square(exp(wtd_std_Valence)) + 231.7994))"

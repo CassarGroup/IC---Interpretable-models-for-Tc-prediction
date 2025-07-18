@@ -1,0 +1,9 @@
+Complexity,Loss,Equation
+1,698.1756,"77.36121"
+3,163.13002,"1092.693 ^ wtd_std_ElectronAffinity"
+6,90.376854,"square(inv(square(wtd_entropy_Density * -0.26543447)))"
+7,90.376465,"abs(square(square(inv(wtd_entropy_Density * 0.26542604))))"
+8,4.6865163,"square(square(inv(wtd_entropy_Density * 0.24323711))) - 34.883766"
+11,1.6393439,"square(square(inv(abs(wtd_entropy_Density * 0.2454934)))) - (wtd_entropy_Density * 24.921173)"
+13,0.9172862,"square(square(inv(wtd_entropy_Density * 0.2580805))) - inv(square(cos(wtd_entropy_Density * -0.98087275)))"
+14,0.038723417,"square(square(inv(wtd_entropy_Density * 0.26087865))) - inv(square(cos(neg(wtd_entropy_Density * -3.2404466))))"

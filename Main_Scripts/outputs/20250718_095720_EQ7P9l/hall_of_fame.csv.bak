@@ -1,0 +1,9 @@
+Complexity,Loss,Equation
+1,4.9444,"6.4099975"
+4,4.9441953,"exp(wtd_std_fie) + 5.936542"
+5,4.9027853,"cos(exp(wtd_mean_atomic_radius)) ^ -3.0418458"
+6,4.8867064,"abs(tan(inv(wtd_entropy_FusionHeat + wtd_std_FusionHeat)))"
+7,4.858214,"abs(tan(inv(tan(wtd_std_FusionHeat) + wtd_mean_Density)))"
+9,4.8537517,"abs(tan(inv(wtd_mean_Density + tan(wtd_std_FusionHeat)))) - 0.020362467"
+11,4.846488,"abs(tan(inv(wtd_mean_Density + tan(wtd_std_FusionHeat)))) - sin(neg(wtd_gmean_FusionHeat))"
+13,4.8456736,"abs(tan(inv(tan(wtd_std_FusionHeat) + wtd_mean_Density))) - cube(neg(sin(exp(wtd_gmean_Valence))))"

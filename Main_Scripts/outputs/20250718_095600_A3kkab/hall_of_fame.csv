@@ -1,0 +1,9 @@
+Complexity,Loss,Equation
+1,19.095894,"18.848297"
+3,19.095724,"0.91031855 + 17.943428"
+4,16.76888,"inv(wtd_entropy_ElectronAffinity * 0.35370016)"
+5,16.01848,"(0.23015963 / wtd_entropy_atomic_radius) + 21.927525"
+6,13.665699,"tan(wtd_entropy_ElectronAffinity ^ -20.313847) + 18.01776"
+8,13.648889,"(tan(wtd_entropy_ElectronAffinity ^ -20.313847) + 18.36655) + wtd_range_FusionHeat"
+14,13.571992,"abs(((18.36655 - (wtd_entropy_ThermalConductivity / wtd_mean_atomic_mass)) + tan(wtd_entropy_ElectronAffinity ^ -20.313847)) + tan(wtd_range_fie))"
+18,13.34716,"((18.36655 - (wtd_entropy_ThermalConductivity / wtd_mean_atomic_mass)) + tan(wtd_entropy_ElectronAffinity ^ -20.313847)) + abs(tan((wtd_entropy_ElectronAffinity ^ -20.313847) - wtd_range_fie))"

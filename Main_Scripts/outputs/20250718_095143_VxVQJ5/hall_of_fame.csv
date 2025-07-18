@@ -1,0 +1,8 @@
+Complexity,Loss,Equation
+1,1001.9093,"51.137608"
+3,807.42633,"wtd_std_atomic_radius * 56.658497"
+4,748.9936,"cube(wtd_std_ThermalConductivity + 2.8497102)"
+6,645.79346,"cube((wtd_std_ThermalConductivity + 3.384682) - wtd_mean_ElectronAffinity)"
+8,588.498,"cube(wtd_std_ThermalConductivity + (3.4094176 - wtd_mean_ElectronAffinity)) * wtd_std_atomic_radius"
+10,578.70575,"cube((wtd_std_ThermalConductivity + (wtd_std_ThermalConductivity + 2.0606642)) - (wtd_mean_ElectronAffinity - range_atomic_mass))"
+13,560.93,"cube((((wtd_std_ThermalConductivity + wtd_std_ThermalConductivity) + 2.7208295) - wtd_mean_ElectronAffinity) - (cos(range_atomic_mass) + gmean_FusionHeat))"

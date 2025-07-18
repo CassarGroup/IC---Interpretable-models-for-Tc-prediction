@@ -1,0 +1,11 @@
+Complexity,Loss,Equation
+1,353.73196,"39.39967"
+3,7.102066,"wtd_gmean_fie ^ -216.88596"
+5,5.9490304,"(wtd_gmean_fie ^ -216.25279) - wtd_mean_atomic_radius"
+7,5.4296403,"((wtd_gmean_fie ^ 5.9659114) ^ -36.141304) - -1.6502275"
+8,5.398675,"(neg(wtd_mean_atomic_mass) ^ wtd_gmean_Density) + (wtd_gmean_fie ^ -213.60689)"
+9,4.877594,"(((wtd_gmean_fie ^ 6.986354) ^ -30.641977) - wtd_mean_atomic_radius) + 1.4891168"
+10,4.871582,"((neg(wtd_mean_atomic_mass) ^ wtd_gmean_Density) - wtd_mean_Valence) + (wtd_gmean_fie ^ -213.60689)"
+11,4.8662724,"(neg(wtd_mean_atomic_mass) ^ (wtd_gmean_Density - sin(wtd_entropy_fie))) + (wtd_gmean_fie ^ -213.60689)"
+13,4.8286524,"(neg(wtd_mean_atomic_mass) ^ (wtd_gmean_Density - sin(wtd_mean_atomic_mass * -0.6811418))) + (wtd_gmean_fie ^ -213.84065)"
+14,4.544778,"((wtd_gmean_fie ^ 4.7093267) ^ (((wtd_mean_atomic_radius * -12.632978) + -49.064278) + inv(wtd_range_atomic_mass))) / 0.6718438"

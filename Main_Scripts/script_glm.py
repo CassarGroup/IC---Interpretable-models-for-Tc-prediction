@@ -9,19 +9,8 @@ from sklearn.model_selection import KFold
 from sklearn.preprocessing import StandardScaler
 from ucimlrepo import fetch_ucirepo
 
-
-def load_dataset():
-    """Import the dataset from UCI repository"""
-
-    # Import dataset
-    superconductivty_data = fetch_ucirepo(id=464)
-
-    # Data (dataframe)
-    X = superconductivty_data.data.features
-    y = superconductivty_data.data.targets
-
-    return X, y
-
+RANDOM_SEED = 1203
+TEST_SIZE = 0.1
 
 class Clustering_GLM(BaseEstimator, RegressorMixin):
     def __init__(self, clusterer, distribution):
@@ -33,6 +22,7 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
 
         self.scaler_X_ = StandardScaler()
         X_scaled = self.scaler_X_.fit_transform(X)
+        
         X = pd.DataFrame(X_scaled, columns=X.columns, index=X.index)
 
         self.X = X

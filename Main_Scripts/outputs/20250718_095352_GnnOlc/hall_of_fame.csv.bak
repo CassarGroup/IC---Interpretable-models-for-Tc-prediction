@@ -1,0 +1,8 @@
+Complexity,Loss,Equation
+1,392.98016,"63.946198"
+3,151.3107,"69.37792 ^ wtd_range_fie"
+5,31.67097,"(wtd_range_fie * 620.24225) + -535.0548"
+6,28.50923,"abs((wtd_range_fie * 584.79956) + -500.68375)"
+7,21.503963,"((wtd_range_fie * 556.3113) - 474.2272) * wtd_std_atomic_radius"
+9,20.426788,"((wtd_range_fie * 556.3113) - (wtd_range_atomic_mass - -475.13498)) * wtd_std_atomic_radius"
+10,19.254251,"(((wtd_range_fie * 556.3113) - 474.98734) * wtd_std_atomic_radius) - abs(wtd_mean_FusionHeat)"

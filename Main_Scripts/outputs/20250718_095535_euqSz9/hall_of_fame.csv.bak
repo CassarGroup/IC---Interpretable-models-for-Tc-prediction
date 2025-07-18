@@ -1,0 +1,10 @@
+Complexity,Loss,Equation
+1,126.55555,"75.16691"
+3,106.903625,"wtd_entropy_Density * 99.647385"
+5,95.411644,"cube(exp(wtd_std_atomic_mass) + 1.0455128)"
+6,94.20486,"cube(cos(wtd_range_atomic_mass) + exp(wtd_std_atomic_mass))"
+7,72.836426,"abs((31.425995 / cube(wtd_std_Density)) - 247.08792)"
+10,59.061504,"((wtd_entropy_atomic_mass * 1123.2666) - (wtd_mean_atomic_mass * -1923.6318)) - neg(wtd_gmean_Valence)"
+12,29.319464,"(tan(wtd_entropy_ElectronAffinity / 0.19453412) - -15.754121) + inv(cube(wtd_entropy_atomic_mass - 0.51316845))"
+14,20.81463,"((tan(wtd_entropy_ElectronAffinity / 0.19453412) - -15.754121) + inv(cube(wtd_entropy_atomic_mass - 0.51316845))) - 1.8544055"
+16,19.255568,"((inv(cube(wtd_entropy_atomic_mass - 0.54287905)) + (tan(wtd_entropy_ElectronAffinity / 0.18391235) - 0.36144042)) - 17.573616) * wtd_range_fie"

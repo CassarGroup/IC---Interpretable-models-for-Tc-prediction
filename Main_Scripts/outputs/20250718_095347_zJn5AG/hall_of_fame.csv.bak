@@ -1,0 +1,11 @@
+Complexity,Loss,Equation
+1,672.9298,"53.443714"
+3,515.7628,"wtd_std_atomic_radius / 0.01682959"
+4,453.2666,"137.63303 ^ sin(wtd_std_atomic_radius)"
+5,301.50595,"square(cube(tan(tan(wtd_gmean_Valence))))"
+7,254.85088,"(102.09631 ^ abs(tan(wtd_gmean_Valence))) - 100.92074"
+9,253.64702,"(102.09631 ^ abs(tan(wtd_gmean_Valence))) - (wtd_mean_Valence + 100.92074)"
+12,220.27074,"(wtd_std_atomic_mass + 83.86073) - square((wtd_std_Valence * (38.32014 - wtd_entropy_fie)) + 37.870823)"
+14,217.72948,"85.63062 - square(((wtd_range_ThermalConductivity / 0.7154636) + (wtd_std_Valence * (38.32014 - wtd_entropy_fie))) + 37.15536)"
+15,216.98315,"(wtd_std_atomic_mass + 83.86073) - square((tan(wtd_range_ThermalConductivity) + (wtd_std_Valence * (38.32014 - wtd_entropy_fie))) + 37.15536)"
+17,212.75983,"(wtd_std_atomic_mass + 83.86073) - square(((wtd_range_ThermalConductivity * tan(wtd_entropy_atomic_radius)) + ((wtd_std_Valence * 38.32014) - wtd_entropy_fie)) + 37.15536)"

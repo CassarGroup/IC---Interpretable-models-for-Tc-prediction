@@ -1,0 +1,8 @@
+Complexity,Loss,Equation
+1,351.7243,"84.92789"
+3,51.487007,"52.564922 / wtd_std_Valence"
+5,10.00753,"(wtd_range_ThermalConductivity * 140.77774) + 104.35673"
+7,9.169311,"((wtd_range_ThermalConductivity * wtd_gmean_fie) * 132.05504) + 102.910324"
+8,7.915291,"(wtd_range_ThermalConductivity * (sqrt(wtd_std_atomic_mass) * 132.05504)) + 104.13172"
+9,6.2178893,"((wtd_range_ThermalConductivity * wtd_gmean_fie) * (wtd_gmean_fie * 137.29182)) + 104.13172"
+13,3.9429145,"((wtd_range_ThermalConductivity * wtd_gmean_fie) * (wtd_gmean_fie * (165.80453 / (wtd_std_Valence ^ -0.7363306)))) + 103.89535"

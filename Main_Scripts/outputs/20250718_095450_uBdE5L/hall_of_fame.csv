@@ -1,0 +1,10 @@
+Complexity,Loss,Equation
+1,13.100001,"31.699995"
+3,10.026205,"wtd_std_fie * -23.558952"
+5,9.841642,"60.67126 - (wtd_gmean_fie * -54.9929)"
+6,9.187265,"square(log(abs(cube(cube(wtd_gmean_ElectronAffinity)))))"
+7,6.2951336,"(wtd_std_fie * -24.004732) - tan(tan(wtd_std_FusionHeat))"
+9,5.4447165,"((wtd_std_fie * -38.68365) + -19.187538) - tan(tan(wtd_std_FusionHeat))"
+10,5.4446626,"abs((wtd_std_fie * -38.681767) + (-19.184994 - tan(tan(wtd_std_FusionHeat))))"
+11,5.4246135,"((-38.68365 * wtd_std_fie) + (-19.18754 - tan(tan(wtd_std_FusionHeat)))) - wtd_range_atomic_radius"
+12,5.3568206,"((-38.68365 * wtd_std_fie) + (-19.18754 - tan(tan(wtd_std_FusionHeat)))) - abs(wtd_range_atomic_radius)"
