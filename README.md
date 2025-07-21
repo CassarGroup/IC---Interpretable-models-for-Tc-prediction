@@ -30,20 +30,45 @@ pip install pygam==0.9.1
 
 ## Files 🗂️
 #### **Data**
-* *train_csv* (UCI Repository): File with the atomic features.
+* *supercon-dataset.zip* & *supercon_data* (Supercon): Data of Supercon dataset. In this project, the file used was *featurized.csv*;
+* *3DSC.csv*: Cloned repository of 3DSC. In this project, the file used was *3DSC_MP.csv*;
+* *train_csv* (UCI Repository): File with the atomic features;
 * *unique_m.csv* (UCI Repository): File with the composition of materials and chemical formula.
+
+#### **Jabir_soraya_files**
+* *df_NCF.csv*: dataframe witou features relative to chemistry formula;
+* jabir_outputs.csv*: featurization by Jabir module from *unique_m.csv* file;
+* *output.csv.csv*: Output from Soraya;
+
+### **Main_scripts**
+* *Optimization_clustering_gam.py*: Script for optimization of Clustering+GAM model
+* *Optimization_clustering_glm.py*: Script for optimization of Clustering+GLM model
+* *Optimization_clustering_sr.py*: Script for optimization of Clustering+SR model
+* *script_gam.py*: Script for implementation of Clustering+GAM model
+* *script_glm.py*: Script for implementation of Clustering+GLM model
+* *script_sr.py*: Script for implementation of Clustering+SR model
 
 #### **Optuna Files**
 Optuna files with the optimizations.
-* *optimization_gam*: Optimization of Clustering+GAM model (bayesian search)
-* *optimization_glm_random_search*: Optimization of Clustering+GLM model (random search)
-* *optimization_glm_bayesian_search*: Optimization of Clustering+GLM model (bayesian search)
-* *optimization_glm_subgroup_discovery*: Optimization of Clustering+GLM model with the previous separation using a rule discovered by SGD algorithm (bayesian search)
+* *optimization_gam_bayesian.db*: Optimization of Clustering+GAM model with UCI Repository data (bayesian search);
+* * *optimization_gam_random_search.db*: Optimization of Clustering+GAM model with UCI Repository data (random search);
+* * *optimization_glm_bayesian_search.db*: Optimization of Clustering+GLM model with UCI Repository data (bayesian search);
+* *optimization_glm_more_clusters.db*: Optimization of CLustering+GLM model with the option of more clusters - until 30 in all clusteres - with UCI Repository data (bayesian search);
+* *optimization_glm_random_search.db*: Optimization of Clustering+GLM model with UCI Repository data (random search);
+* *optimization_glm_random_search.db*: Optimization of Clustering+GLM model with Supercon data (bayesian search);
+* *optimization_glm_random_search.db*: Optimization of Clustering+GLM model with Supercon data using Univariate Feature Selection (bayesian search);
+* *optimization_jabir_soraya.db*: Optimization of Clustering+GLM with the features created by Jabir and selected by Soraya (bayesian search);
+* *optimization_jabir_soraya_NCF.db*: Optimization of Clustering+GLM with the features created by Jabir and selected by Soraya with the features relative to chemistry formula;
+* *optimization_sgd_in.db* & *optimization_sgd_outside: Optimization of Clustering+GLM model with the previous separation using a rule discovered by SGD algorithm and UCI Repository data (bayesian search);
+* *optimization_sr.db*: Optimization of Clustering+SR model (bayesian search);
+* *optimization_sr_up_to_date_script.db*: Optimization of Clustering+SR without operators optimization (bayesian search).
 
 #### **Other Files**
-* *Subrgoup_discovery.ipynb*: Test of pysubgroup module.
-* *Optuna_Results_Analysis_IT_GLM_GAM.ipynb*: Analysis of the intermediate results of GLM and GAM optimizations. 
-
+* *Jabir_Soraya.ipynb*: Test with Jabir and Soraya modules;
+* *Optuna_Results_Analysis_IT_GLM_GAM.ipynb*: Analysis of the intermediate results of GLM, GAM and Symbolic Regression optimizations;
+* *Subrgoup_discovery.ipynb*: Test of pysubgroup module;
+* *SuperconDataset*: Test with Supercon dataset;
+* *Symbolic Regression Equations.ipynb*: Visuzalization of Symbolic Regresion equations.
 
 ## References
 [1] Wang FE. Superconductivity. In: Wang FE, editor. Bonding Theory for Metals and Alloys. Elsevier; 2005. p. 65-108. Acesso em: 27 abr. 2025. Available from: https://www.sciencedirect.com/science/article/pii/B9780444519788500076.
