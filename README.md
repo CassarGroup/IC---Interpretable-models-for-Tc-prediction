@@ -51,15 +51,15 @@ pip install pygam==0.9.1
 #### **Optuna Files**
 Optuna files with the optimizations.
 * *optimization_gam_bayesian.db*: Optimization of Clustering+GAM model with UCI Repository data (bayesian search);
-* * *optimization_gam_random_search.db*: Optimization of Clustering+GAM model with UCI Repository data (random search);
-* * *optimization_glm_bayesian_search.db*: Optimization of Clustering+GLM model with UCI Repository data (bayesian search);
+* *optimization_gam_random_search.db*: Optimization of Clustering+GAM model with UCI Repository data (random search);
+* *optimization_glm_bayesian_search.db*: Optimization of Clustering+GLM model with UCI Repository data (bayesian search);
 * *optimization_glm_more_clusters.db*: Optimization of CLustering+GLM model with the option of more clusters - until 30 in all clusteres - with UCI Repository data (bayesian search);
 * *optimization_glm_random_search.db*: Optimization of Clustering+GLM model with UCI Repository data (random search);
 * *optimization_glm_random_search.db*: Optimization of Clustering+GLM model with Supercon data (bayesian search);
 * *optimization_glm_random_search.db*: Optimization of Clustering+GLM model with Supercon data using Univariate Feature Selection (bayesian search);
 * *optimization_jabir_soraya.db*: Optimization of Clustering+GLM with the features created by Jabir and selected by Soraya (bayesian search);
 * *optimization_jabir_soraya_NCF.db*: Optimization of Clustering+GLM with the features created by Jabir and selected by Soraya with the features relative to chemistry formula;
-* *optimization_sgd_in.db* & *optimization_sgd_outside: Optimization of Clustering+GLM model with the previous separation using a rule discovered by SGD algorithm and UCI Repository data (bayesian search);
+* *optimization_sgd_in.db* & *optimization_sgd_outside*: Optimization of Clustering+GLM model with the previous separation using a rule discovered by SGD algorithm and UCI Repository data (bayesian search);
 * *optimization_sr.db*: Optimization of Clustering+SR model (bayesian search);
 * *optimization_sr_up_to_date_script.db*: Optimization of Clustering+SR without operators optimization (bayesian search).
 
