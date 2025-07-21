@@ -148,6 +148,8 @@ def optimization(X_train, y_train):
     )
 
     objective_fn = make_objective(X_train, y_train)
+    
+    # First trial
     clusters_study.optimize(objective_fn, n_trials=N_TRIALS)
 
     best_trial = clusters_study.best_trial
