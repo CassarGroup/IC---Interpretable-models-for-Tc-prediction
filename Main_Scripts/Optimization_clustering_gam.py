@@ -47,7 +47,7 @@ def create_instance(trial):
 
     clusterer_type = trial.suggest_categorical(
         "clusterer",
-        ["kmeans", "affinity_propagation", "mean_shift", "bisecting_kmeans"],
+        ["kmeans", "affinity_propagation", "mean_shift", "bisecting_kmeans", "birch"],
     )
 
     if clusterer_type == "kmeans":
