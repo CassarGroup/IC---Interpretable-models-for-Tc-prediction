@@ -29,13 +29,13 @@ pip install pygam==0.9.1
 ```
 
 ## Files 🗂️
-#### **Data**
+### **Data**
 * *supercon-dataset.zip* & *supercon_data* (Supercon): Data of Supercon dataset. In this project, the file used was *featurized.csv*;
 * *3DSC.csv* (3DSC): Cloned repository of 3DSC. In this project, the file used was *3DSC_MP.csv*;
 * *train_csv* (UCI Repository): File with the atomic features;
 * *unique_m.csv* (UCI Repository): File with the composition of materials and chemical formula.
 
-#### **Jabir_soraya_files**
+### **Jabir_soraya_files**
 * *df_NCF.csv*: dataframe witou features relative to chemistry formula;
 * *jabir_outputs.csv*: featurization by Jabir module from *unique_m.csv* file;
 * *output.csv.csv*: Output from Soraya;
@@ -48,7 +48,7 @@ pip install pygam==0.9.1
 * *script_glm.py*: Script for implementation of Clustering+GLM model
 * *script_sr.py*: Script for implementation of Clustering+SR model
 
-#### **Optuna Files**
+### **Optuna Files**
 Optuna files with the optimizations.
 * *optimization_gam_bayesian.db*: Optimization of Clustering+GAM model with UCI Repository data (bayesian search);
 * *optimization_gam_random_search.db*: Optimization of Clustering+GAM model with UCI Repository data (random search);
@@ -63,7 +63,7 @@ Optuna files with the optimizations.
 * *optimization_sr.db*: Optimization of Clustering+SR model (bayesian search);
 * *optimization_sr_up_to_date_script.db*: Optimization of Clustering+SR without operators optimization (bayesian search).
 
-#### **Other Files**
+### **Other Files**
 * *Jabir_Soraya.ipynb*: Test with Jabir and Soraya modules;
 * *Optuna_Results_Analysis_IT_GLM_GAM.ipynb*: Analysis of the intermediate results of GLM, GAM and Symbolic Regression optimizations;
 * *Subrgoup_discovery.ipynb*: Test of pysubgroup module;
