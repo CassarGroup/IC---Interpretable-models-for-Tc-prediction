@@ -31,13 +31,13 @@ pip install pygam==0.9.1
 ## Files 🗂️
 #### **Data**
 * *supercon-dataset.zip* & *supercon_data* (Supercon): Data of Supercon dataset. In this project, the file used was *featurized.csv*;
-* *3DSC.csv*: Cloned repository of 3DSC. In this project, the file used was *3DSC_MP.csv*;
+* *3DSC.csv* (3DSC): Cloned repository of 3DSC. In this project, the file used was *3DSC_MP.csv*;
 * *train_csv* (UCI Repository): File with the atomic features;
 * *unique_m.csv* (UCI Repository): File with the composition of materials and chemical formula.
 
 #### **Jabir_soraya_files**
 * *df_NCF.csv*: dataframe witou features relative to chemistry formula;
-* jabir_outputs.csv*: featurization by Jabir module from *unique_m.csv* file;
+* *jabir_outputs.csv*: featurization by Jabir module from *unique_m.csv* file;
 * *output.csv.csv*: Output from Soraya;
 
 ### **Main_scripts**
