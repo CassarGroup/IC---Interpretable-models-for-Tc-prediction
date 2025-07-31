@@ -44,7 +44,7 @@ def create_instance(trial):
     )
 
     if clusterer_type == "kmeans":
-        n_clusters = trial.suggest_int("n_clusters", 1, 10)
+        n_clusters = trial.suggest_int("n_clusters", 1, 30)
         clusterer = KMeans(
             n_clusters=n_clusters,
             init="k-means++",
@@ -61,7 +61,7 @@ def create_instance(trial):
         clusterer = MeanShift(bandwidth=bandwidth)
 
     elif clusterer_type == "bisecting_kmeans":
-        n_clusters = trial.suggest_int("n_clusters_bkmeans", 1, 20)
+        n_clusters = trial.suggest_int("n_clusters_bkmeans", 1, 30)
         bisecting_strategy = trial.suggest_categorical(
             "bisecting_strategy", ["biggest_inertia", "largest_cluster"]
         )
@@ -70,7 +70,7 @@ def create_instance(trial):
         )
 
     elif clusterer_type == "birch":
-        n_clusters = trial.suggest_int("n_clusters_birch", 1, 10)
+        n_clusters = trial.suggest_int("n_clusters_birch", 1, 30)
         branching_factor = trial.suggest_int("branching_factor", 50, 1000)
         threshold = trial.suggest_float("threshold", 0.1, 1)
         clusterer = Birch(
