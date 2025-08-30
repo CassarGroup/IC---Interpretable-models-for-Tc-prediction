@@ -1,5 +1,5 @@
 import statistics as st
-
+import shap
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt 
@@ -95,7 +95,7 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         if plot:
             plt.figure(figsize=(10, 15))
             plt.barh(df_glm['Feature'], df_glm['Feature Importance'], color="green")
-            plt.xlabel('Feature Importance')
+            plt.xlabel('Weights')
             plt.title(f'Feature Importance (GLM) - Cluster {cluster}')
             plt.gca().invert_yaxis() 
             plt.show()
@@ -109,6 +109,22 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
             df_glm = df_glm.head(k)
         
         return df_glm
+    
+
+    def shap(self, cluster, instance=None):
+
+        glm = self.models_[cluster]
+        X_cluster = self.data_by_cluster_[cluster]["X"]
+
+        explainer = shap.Explainer(glm.predict, X_cluster)
+        shap_values = explainer(X_cluster)
+
+        if instance is not None:
+            shap.plots.waterfall(shap_values[instance])
+        else:
+            shap.summary_plot(shap_values, X_cluster, color="coolwarm")
+
+        return shap_values
 
 
 def cross_validation(X, y, clusterer, distribution, random_seed=1203, n_splits=5):

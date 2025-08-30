@@ -61,7 +61,7 @@ def create_instance(trial):
     elif clusterer_type == "affinity_propagation":
         damping = trial.suggest_float("damping", 0.5, 1.0)
         # affinity = trial.suggest_categorical("affinity", ["euclidean", "precomputed"])
-        clusterer = AffinityPropagation(damping=damping)
+        clusterer = AffinityPropagation(damping=damping, random_state=1203)
 
     elif clusterer_type == "mean_shift":
         bandwidth = trial.suggest_float("bandwidth", 0.8, 0.9)
@@ -73,7 +73,9 @@ def create_instance(trial):
             "bisecting_strategy", ["biggest_inertia", "largest_cluster"]
         )
         clusterer = BisectingKMeans(
-            n_clusters=n_clusters, bisecting_strategy=bisecting_strategy
+            n_clusters=n_clusters, 
+            bisecting_strategy=bisecting_strategy,
+            random_state=1203
         )
 
     elif clusterer_type == "birch":
