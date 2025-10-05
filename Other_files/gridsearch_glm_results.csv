@@ -1,0 +1,8 @@
+,Family,Link,RMSE
+0,Gamma,log,17.439561734834772
+1,Gamma,identity,23.508265874004763
+2,Gamma,inverse_power,58.25537712920126
+3,Gaussian,log,15.102620944166947
+4,Gaussian,identity,17.785167916682454
+5,Gaussian,inverse_power,15.552202704305278
+6,InverseGaussian,identity,60.53426918011969
