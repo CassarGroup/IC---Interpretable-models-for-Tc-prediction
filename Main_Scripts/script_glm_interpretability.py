@@ -110,6 +110,9 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         
         return df_glm
     
+    def interpretability(a, b):
+        return a *b
+    
 
     def shap(self, cluster, instance=None):
 
@@ -119,13 +122,15 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         explainer = shap.Explainer(glm.predict, X_cluster)
         shap_values = explainer(X_cluster)
 
+        shap.plots.bar(shap_values)
+
         if instance is not None:
-            shap.plots.waterfall(shap_values[instance])
+            shap.plots.waterfall(shap_values[instance]) 
         else:
             shap.summary_plot(shap_values, X_cluster, color="coolwarm")
 
         return shap_values
-
+    
 
 def cross_validation(X, y, clusterer, distribution, random_seed=1203, n_splits=5):
     """Realiza validação cruzada com clusterização"""
