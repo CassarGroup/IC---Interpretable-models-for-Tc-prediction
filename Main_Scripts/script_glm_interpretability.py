@@ -6,9 +6,13 @@ import matplotlib.pyplot as plt
 import statsmodels.api as sm
 from sklearn.base import BaseEstimator, RegressorMixin, clone
 from sklearn.metrics import root_mean_squared_error
+from sklearn.model_selection import train_test_split
 from sklearn.model_selection import KFold
 from sklearn.preprocessing import StandardScaler
 from ucimlrepo import fetch_ucirepo
+import warnings
+
+warnings.filterwarnings("ignore", category=FutureWarning)
 
 RANDOM_SEED = 1203
 TEST_SIZE = 0.1
@@ -18,21 +22,25 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         self.clusterer = clusterer
         self.distribution = distribution
 
-    def fit(self, X, y):
+    def fit(self, X, y, X_test):
         """Ajustando um modelo para cada cluster"""
 
         self.scaler_X_ = StandardScaler()
         X_scaled = self.scaler_X_.fit_transform(X)
+        X_test_scaled = self.scaler_X_test_.transform(X_test)
         
         X = pd.DataFrame(X_scaled, columns=X.columns, index=X.index)
+        X_test = pd.DataFrame(X_test_scaled, columns=X_test.columns, index=X.index)
 
         self.X = X
         self.y = y
+        self.X_test = X_test
 
         # Fit the clustering algorithm
         self.clusterer_ = clone(self.clusterer)
 
         cluster_labels = self.clusterer_.fit_predict(X)
+        cluster_labels_test = self.clusterer_.predict(X_test)
 
         self.cluster_labels_ = cluster_labels
 
@@ -46,14 +54,21 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
 
         for cluster in valid_clusters:  # identify the classes
             idx = np.where(cluster_labels == cluster)[0]
+            idx_test = np.where(cluster_labels_test == cluster)[0]
 
             X_cluster = X.iloc[idx]
             y_cluster = y.iloc[idx]
+            X_cluster_test = X_test.iloc[idx]
 
             self.data_by_cluster_[cluster] = {
                 "X": X_cluster,
                 "y": y_cluster,
                 "indices": idx,
+            }
+
+            self.data_by_cluster_test_[cluster] = {
+                "X": X_cluster_test,
+                "indices": idx_test
             }
 
             model_glm = sm.GLM(y_cluster, X_cluster, family=self.distribution)
@@ -109,28 +124,32 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
             df_glm = df_glm.head(k)
         
         return df_glm
-    
-    def interpretability(a, b):
-        return a *b
-    
+        
 
     def shap(self, cluster, instance=None):
 
         glm = self.models_[cluster]
-        X_cluster = self.data_by_cluster_[cluster]["X"]
+        X_cluster = self.data_by_cluster_test_[cluster]["X"]
 
-        explainer = shap.Explainer(glm.predict, X_cluster)
+        X_train, X_test = train_test_split(X_cluster, test_size = 0.2, random_state=1203)
+
+        explainer = shap.Explainer(glm.predict, X_test)
         shap_values = explainer(X_cluster)
 
+
+        plt.title(f"Shap values for the Cluster {cluster} model")
         shap.plots.bar(shap_values)
 
         if instance is not None:
+            plt.title(f"Feature Importance: cluster {cluster}, instance {instance}")
             shap.plots.waterfall(shap_values[instance]) 
+            plt.show()
         else:
-            shap.summary_plot(shap_values, X_cluster, color="coolwarm")
+            plt.title(f"Feature Importance: cluster {cluster}")
+            shap.summary_plot(shap_values, X_test, color="coolwarm")
+            plt.show()
 
         return shap_values
-    
 
 def cross_validation(X, y, clusterer, distribution, random_seed=1203, n_splits=5):
     """Realiza validação cruzada com clusterização"""

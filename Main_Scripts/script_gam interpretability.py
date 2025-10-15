@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 import statistics as st
+import shap
+import matplotlib.pyplot as plt
 import pygam
 from pygam import s
 from sklearn.base import BaseEstimator, RegressorMixin, clone
@@ -94,7 +96,68 @@ class Clustering_GAM(BaseEstimator, RegressorMixin):
                 y_pred[idx] = np.nan
                 
         return y_pred
+    
+    def shap(self, cluster, instance=None):
 
+        glm = self.models_[cluster]
+        X_cluster = self.data_by_cluster_[cluster]["X"]
+
+        explainer = shap.Explainer(glm.predict, X_cluster)
+        shap_values = explainer(X_cluster)
+
+        shap.plots.bar(shap_values)
+
+        if instance is not None:
+            shap.plots.waterfall(shap_values[instance]) 
+        else:
+            shap.summary_plot(shap_values, X_cluster, color="coolwarm")
+
+        return shap_values
+    
+    def partial_dependence_plot(self, cluster):
+
+        gam = self.models_[cluster]
+        X_cluster = self.data_by_cluster_[cluster]["X"]
+        
+        num_vars = 81  
+
+        fig, axs = plt.subplots(9, 9, figsize=(40, 40))  
+        axs = axs.flatten() 
+
+        for i in range(num_vars):
+            XX = gam.generate_X_grid(term=i)  
+            
+            y_partial = gam.partial_dependence(term=i, X=XX)
+            y_conf = gam.partial_dependence(term=i, X=XX, width=.95)[1]  
+
+            axs[i].plot(XX[:, i], y_partial, label="Estimated effect")
+            axs[i].plot(XX[:, i], y_conf, c='r', ls='--', label="Confidence Interval 95%")
+            
+            axs[i].set_title(f"Variable {X_cluster.columns[i]}")
+            axs[i].set_xlabel("Variable value")
+            axs[i].set_ylabel("Effect on target")
+            axs[i].legend()
+
+        plt.tight_layout()
+        plt.show()
+    
+    def partial_dependence_shap(self, cluster, k=5):
+        glm = self.models_[cluster]
+        X_cluster = self.data_by_cluster_[cluster]["X"]
+
+        explainer = shap.Explainer(glm.predict, X_cluster)
+        shap_values = explainer(X_cluster)
+
+        mean_abs_shap = np.abs(shap_values.values).mean(axis=0)
+        feature_names = X_cluster.columns
+
+        feature_importance_shap = pd.DataFrame({
+            "feature": X_cluster.columns,
+            "mean_abs_shap": mean_abs_shap
+        }).sort_values("mean_abs_shap", ascending=False)
+
+        for i in feature_importance_shap.head(k).itertuples():
+            shap.dependence_plot(i.feature, shap_values.values, X_cluster, show=True)
 
 def cross_validation(X, y, clusterer, distribution_name, link_name, lam, n_splines, n_splits=5):
     
