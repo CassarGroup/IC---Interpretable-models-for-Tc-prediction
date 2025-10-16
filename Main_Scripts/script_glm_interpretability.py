@@ -1,6 +1,7 @@
 import statistics as st
 import shap
 import numpy as np
+import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt 
 import statsmodels.api as sm
@@ -27,10 +28,10 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
 
         self.scaler_X_ = StandardScaler()
         X_scaled = self.scaler_X_.fit_transform(X)
-        X_test_scaled = self.scaler_X_test_.transform(X_test)
+        X_test_scaled = self.scaler_X_.transform(X_test)
         
         X = pd.DataFrame(X_scaled, columns=X.columns, index=X.index)
-        X_test = pd.DataFrame(X_test_scaled, columns=X_test.columns, index=X.index)
+        X_test = pd.DataFrame(X_test_scaled, columns=X_test.columns, index=X_test.index)
 
         self.X = X
         self.y = y
@@ -45,20 +46,21 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         self.cluster_labels_ = cluster_labels
 
         unique_clusters = np.unique(cluster_labels)
-        valid_clusters = [c for c in unique_clusters if c != -1]
+        self.valid_clusters = [c for c in unique_clusters if c != -1]
 
         self.models_ = {}
 
         # For each cluster, fit a supervised model
         self.data_by_cluster_ = {}
+        self.data_by_cluster_test_ = {}
 
-        for cluster in valid_clusters:  # identify the classes
+        for cluster in self.valid_clusters:  # identify the classes
             idx = np.where(cluster_labels == cluster)[0]
             idx_test = np.where(cluster_labels_test == cluster)[0]
 
             X_cluster = X.iloc[idx]
             y_cluster = y.iloc[idx]
-            X_cluster_test = X_test.iloc[idx]
+            X_cluster_test = X_test.iloc[idx_test]
 
             self.data_by_cluster_[cluster] = {
                 "X": X_cluster,
@@ -124,18 +126,63 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
             df_glm = df_glm.head(k)
         
         return df_glm
-        
 
-    def shap(self, cluster, instance=None):
+
+
+    def feature_importance_general(self, k=10, plot=True):
+        """
+        Return the most important features for each cluster in an unique plot.
+        """
+
+        df_fi = pd.DataFrame(columns=["Feature", "Feature Importance"])
+
+        for cluster in self.valid_clusters:
+            df_topk = self.feature_importance(cluster=cluster, k=k, plot=False)
+            df_fi = pd.concat([df_fi, df_topk], ignore_index=True)
+
+        if plot:
+            n_clusters = len(self.valid_clusters)
+            n_cols = 4
+            n_rows = (n_clusters + n_cols - 1) // n_cols
+
+            fig, axs = plt.subplots(n_rows, n_cols, figsize=(30, 5 * n_rows))
+            axs = axs.flatten()
+
+            for i, cluster in enumerate(self.valid_clusters):
+                df_cluster = self.feature_importance(cluster=cluster, k=k, plot=False)
+                ax = axs[i]
+                ax.barh(df_cluster['Feature'], df_cluster['Feature Importance'], color="green")
+                ax.set_title(f"Cluster {cluster}")
+                ax.set_xlabel('Weights')
+                ax.invert_yaxis()
+
+            for j in range(i+1, len(axs)):
+                fig.delaxes(axs[j])
+            fig.tight_layout()
+            plt.show()
+
+            plt.figure(figsize=(12, 8))
+            order = df_fi["Feature"].value_counts().index
+            sns.countplot(y="Feature", data=df_fi, order=order, color="pink")
+            plt.title("Frequency of the Most Important Features (All clusters)", fontsize=16)
+            plt.xlabel("Count", fontsize=14)
+            plt.ylabel("Feature", fontsize=14)
+            plt.xticks(fontsize=12)
+            plt.yticks(fontsize=12)
+            plt.tight_layout()
+            plt.show()
+
+        return df_fi
+
+
+
+    def shap(self, cluster, instance=None, dependence_plot = False):
 
         glm = self.models_[cluster]
         X_cluster = self.data_by_cluster_test_[cluster]["X"]
 
-        X_train, X_test = train_test_split(X_cluster, test_size = 0.2, random_state=1203)
-
-        explainer = shap.Explainer(glm.predict, X_test)
+        explainer = shap.Explainer(lambda x: glm.predict(x, which="linear"), X_cluster)
         shap_values = explainer(X_cluster)
-
 
         plt.title(f"Shap values for the Cluster {cluster} model")
         shap.plots.bar(shap_values)
@@ -146,7 +193,7 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
             plt.show()
         else:
             plt.title(f"Feature Importance: cluster {cluster}")
-            shap.summary_plot(shap_values, X_test, color="coolwarm")
+            shap.summary_plot(shap_values, X_cluster, color="coolwarm")
             plt.show()
 
         return shap_values
