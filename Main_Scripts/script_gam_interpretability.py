@@ -24,15 +24,18 @@ class Clustering_GAM(BaseEstimator, RegressorMixin):
         self.n_splines = n_splines
         self.lam = lam
 
-    def fit(self, X, y):
+    def fit(self, X, y, X_test):
 
         self.scaler_X_ = StandardScaler()
         X_scaled = self.scaler_X_.fit_transform(X)
-
-        X = pd.DataFrame(X_scaled, columns=X.columns, index=X.index)
+        X_test_scaled = self.scaler_X_.transform(X_test)
         
+        X = pd.DataFrame(X_scaled, columns=X.columns, index=X.index)
+        X_test = pd.DataFrame(X_test_scaled, columns=X_test.columns, index=X_test.index)
+
         self.X = X
         self.y = y
+        self.X_test = X_test
 
         # Fit the clustering algorithm
         self.clusterer_ = clone(
@@ -41,7 +44,8 @@ class Clustering_GAM(BaseEstimator, RegressorMixin):
         # Construct a new unfitted estimator with the same parameters for each entrance
         
         cluster_labels = self.clusterer_.fit_predict(X)  
-        
+        cluster_labels_test = self.clusterer_.predict(X_test)
+
         self.cluster_labels_ = cluster_labels
 
         unique_clusters = np.unique(cluster_labels)
@@ -51,6 +55,7 @@ class Clustering_GAM(BaseEstimator, RegressorMixin):
 
         # For each cluster, fit a supervised model
         self.data_by_cluster_ = {}
+        self.data_by_cluster_test_ = {}
         
         self.terms = s(0)
         
@@ -63,11 +68,20 @@ class Clustering_GAM(BaseEstimator, RegressorMixin):
             y_cluster = y.iloc[idx]
             y_cluster = np.clip(y_cluster, 1e-6, np.inf)
 
+            idx_test = np.where(cluster_labels_test == cluster)[0]
+            X_cluster_test = X_test.iloc[idx_test]
+
             self.data_by_cluster_[cluster] = {
                 "X": X_cluster,
                 "y": y_cluster,
                 "indices": idx,
             }
+
+            self.data_by_cluster_test_[cluster] = {
+                "X": X_cluster_test,
+                "indices": idx_test
+            }
+
             
             model_gam = pygam.pygam.GAM(self.terms, 
                                         distribution=self.distribution, 
@@ -75,9 +89,9 @@ class Clustering_GAM(BaseEstimator, RegressorMixin):
                                         lam=self.lam, 
                                         n_splines=self.n_splines)
 
-            glm = model_gam.fit(X_cluster,y_cluster)
+            gam = model_gam.fit(X_cluster,y_cluster)
 
-            self.models_[cluster] = glm
+            self.models_[cluster] = gam
 
         return self
 
@@ -99,10 +113,10 @@ class Clustering_GAM(BaseEstimator, RegressorMixin):
     
     def shap(self, cluster, instance=None):
 
-        glm = self.models_[cluster]
+        gam = self.models_[cluster]
         X_cluster = self.data_by_cluster_[cluster]["X"]
 
-        explainer = shap.Explainer(glm.predict, X_cluster)
+        explainer = shap.Explainer(gam.predict, X_cluster)
         shap_values = explainer(X_cluster)
 
         shap.plots.bar(shap_values)
@@ -140,24 +154,6 @@ class Clustering_GAM(BaseEstimator, RegressorMixin):
 
         plt.tight_layout()
         plt.show()
-    
-    def partial_dependence_shap(self, cluster, k=5):
-        glm = self.models_[cluster]
-        X_cluster = self.data_by_cluster_[cluster]["X"]
-
-        explainer = shap.Explainer(glm.predict, X_cluster)
-        shap_values = explainer(X_cluster)
-
-        mean_abs_shap = np.abs(shap_values.values).mean(axis=0)
-        feature_names = X_cluster.columns
-
-        feature_importance_shap = pd.DataFrame({
-            "feature": X_cluster.columns,
-            "mean_abs_shap": mean_abs_shap
-        }).sort_values("mean_abs_shap", ascending=False)
-
-        for i in feature_importance_shap.head(k).itertuples():
-            shap.dependence_plot(i.feature, shap_values.values, X_cluster, show=True)
 
 def cross_validation(X, y, clusterer, distribution_name, link_name, lam, n_splines, n_splits=5):
     

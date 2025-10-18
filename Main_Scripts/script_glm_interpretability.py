@@ -175,8 +175,7 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         return df_fi
 
 
-
-    def shap(self, cluster, instance=None, dependence_plot = False):
+    def shap(self, cluster, instance=None, linear=True):
 
         glm = self.models_[cluster]
         X_cluster = self.data_by_cluster_test_[cluster]["X"]
