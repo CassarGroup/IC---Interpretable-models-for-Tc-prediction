@@ -155,8 +155,9 @@ class Clustering_GAM(BaseEstimator, RegressorMixin):
         plt.tight_layout()
         plt.show()
 
-def cross_validation(X, y, clusterer, distribution_name, link_name, lam, n_splines, n_splits=5):
-    
+def cross_validation(X, y, X_test, clusterer, distribution_name, link_name, lam, n_splines, n_splits=5):
+    RANDOM_SEED = 1203
+
     all_rmse = {}
 
     kf = KFold(n_splits=n_splits, shuffle=True, random_state=RANDOM_SEED)
@@ -173,7 +174,7 @@ def cross_validation(X, y, clusterer, distribution_name, link_name, lam, n_splin
                           lam = lam,
                           n_splines= n_splines)
             
-            model.fit(X_train, y_train)
+            model.fit(X_train, y_train, X_test)
 
             # Make the prediction
             y_pred = model.predict(X_test)
@@ -190,7 +191,7 @@ def cross_validation(X, y, clusterer, distribution_name, link_name, lam, n_splin
 
     return all_rmse
 
-def train_validation(X, y, clusterer, distribution_name, link_name, lam, n_splines):
+def train_validation(X, y, X_test, clusterer, distribution_name, link_name, lam, n_splines=5):
 
     TEST_SIZE = 0.1
     RANDOM_SEED = 1203
@@ -205,7 +206,7 @@ def train_validation(X, y, clusterer, distribution_name, link_name, lam, n_splin
                           lam = lam,
                           n_splines= n_splines)
             
-    model.fit(X_train, y_train)
+    model.fit(X_train, y_train, X_test)
 
     y_pred = model.predict(X_validation)
     rmse = root_mean_squared_error(y_validation, y_pred)

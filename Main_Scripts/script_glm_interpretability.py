@@ -197,7 +197,7 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
 
         return shap_values
 
-def cross_validation(X, y, clusterer, distribution, random_seed=1203, n_splits=5):
+def cross_validation(X, y, X_test, clusterer, distribution, random_seed=1203, n_splits=5):
     """Realiza validação cruzada com clusterização"""
 
     kf = KFold(n_splits=n_splits, shuffle=True, random_state=random_seed)
@@ -209,7 +209,7 @@ def cross_validation(X, y, clusterer, distribution, random_seed=1203, n_splits=5
         y_train, y_test = y.iloc[train_idx], y.iloc[test_idx]
 
         model = Clustering_GLM(clusterer=clone(clusterer), distribution=distribution)
-        model.fit(X_train, y_train)
+        model.fit(X_train, y_train, X_test)
 
         y_pred = model.predict(X_test)
 

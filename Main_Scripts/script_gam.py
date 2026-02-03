@@ -99,6 +99,8 @@ class Clustering_GAM(BaseEstimator, RegressorMixin):
 def cross_validation(X, y, clusterer, distribution_name, link_name, lam, n_splines, n_splits=5):
     
     all_rmse = {}
+    RANDOM_SEED = 1203
+
 
     kf = KFold(n_splits=n_splits, shuffle=True, random_state=RANDOM_SEED)
 
