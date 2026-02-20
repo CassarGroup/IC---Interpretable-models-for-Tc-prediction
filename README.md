@@ -32,8 +32,8 @@ pip install pygam==0.9.1
 ### **Data**
 * *supercon-dataset.zip* & *supercon_data* (Supercon): Data of Supercon dataset. In this project, the file used was *featurized.csv*;
 * *3DSC.csv* (3DSC): Cloned repository of 3DSC. In this project, the file used was *3DSC_MP.csv*;
-* *train_csv* (UCI Repository): File with the atomic features;
-* *unique_m.csv* (UCI Repository): File with the composition of materials and chemical formula.
+* *train_csv* (UCI Repository): File with the atomic features of UCI Repository data;
+* *unique_m.csv* (UCI Repository): File with the composition of materials and chemical formula of UCI Repository data.
 
 ### **Jabir_soraya_files**
 * *df_NCF.csv*: dataframe witou features relative to chemistry formula;
@@ -45,29 +45,39 @@ pip install pygam==0.9.1
 * *Optimization_clustering_glm.py*: Script for optimization of Clustering+GLM model
 * *Optimization_clustering_sr.py*: Script for optimization of Clustering+SR model
 * *script_gam.py*: Script for implementation of Clustering+GAM model
+* *script_gam.py_interpretability*: Script for implementation of Clustering+GAM model and functions related to interpretability and explicability.
 * *script_glm.py*: Script for implementation of Clustering+GLM model
+* *script_glm.py_interpretability*: Script for implementation of Clustering+GLM model and functions related to interpretability and explicability.
 * *script_sr.py*: Script for implementation of Clustering+SR model
 
 ### **Optuna Files**
 Optuna files with the optimizations.
+* *optimization_gam_less_clusters*: Optimization of Clustering+GAM model with less clusters (the range of clusters considered was 2-10) made with UCI Repository data (bayesian search);
 * *optimization_gam_bayesian.db*: Optimization of Clustering+GAM model with UCI Repository data (bayesian search);
 * *optimization_gam_random_search.db*: Optimization of Clustering+GAM model with UCI Repository data (random search);
+* optimization_gam_without_clustering*: Optimization of GAM model with UCI Repository data (bayesian search);
 * *optimization_glm_bayesian_search.db*: Optimization of Clustering+GLM model with UCI Repository data (bayesian search);
 * *optimization_glm_more_clusters.db*: Optimization of CLustering+GLM model with the option of more clusters - until 30 in all clusteres - with UCI Repository data (bayesian search);
 * *optimization_glm_random_search.db*: Optimization of Clustering+GLM model with UCI Repository data (random search);
-* *optimization_glm_random_search.db*: Optimization of Clustering+GLM model with Supercon data (bayesian search);
-* *optimization_glm_random_search.db*: Optimization of Clustering+GLM model with Supercon data using Univariate Feature Selection (bayesian search);
+* *optimization_glm_supercon.db*: Optimization of Clustering+GLM model with Supercon data (bayesian search);
+* *optimization_glm_supercon_univariate.db*: Optimization of Clustering+GLM model with Supercon data using Univariate Feature Selection (bayesian search);
 * *optimization_jabir_soraya.db*: Optimization of Clustering+GLM with the features created by Jabir and selected by Soraya (bayesian search);
 * *optimization_jabir_soraya_NCF.db*: Optimization of Clustering+GLM with the features created by Jabir and selected by Soraya with the features relative to chemistry formula;
-* *optimization_sgd_in.db* & *optimization_sgd_outside*: Optimization of Clustering+GLM model with the previous separation using a rule discovered by SGD algorithm and UCI Repository data (bayesian search);
+* *optimization_sgd_in_glm.db* & *optimization_sgd_outside_glm*: Optimization of Clustering+GLM model with the previous separation using a rule discovered by SGD algorithm and UCI Repository data (bayesian search);
+* *optimization_sgd_in_gam.db* & *optimization_sgd_outside_gam*: Optimization of Clustering+GAM model with the previous separation using a rule discovered by SGD algorithm and UCI Repository data (bayesian search);
 * *optimization_sr.db*: Optimization of Clustering+SR model (bayesian search);
 * *optimization_sr_up_to_date_script.db*: Optimization of Clustering+SR without operators optimization (bayesian search).
 
 ### **Other Files**
+* *Exploring_interpretability*: First file exploring the best models (Clustering+GLM and Clustering+GAM) found;
+* *Exploring_interpretability*: Second file exploring the best model Clustering+GAM with less than 10 clusters;
+* *Featurization_glasspy*: Trial of feature extraction with Glasspy tool;
+* *gridsearch_glm_results.csv*: Results of gridsearch optimization of GLM model;
 * *Jabir_Soraya.ipynb*: Test with Jabir and Soraya modules;
-* *Optuna_Results_Analysis_IT_GLM_GAM.ipynb*: Analysis of the intermediate results of GLM, GAM and Symbolic Regression optimizations;
+* *Optimization_and_Hypothesis_Testing.ipynb*: Analysis of the intermediate results of GLM, GAM and Symbolic Regression optimizations;
 * *Subrgoup_discovery.ipynb*: Test of pysubgroup module;
 * *SuperconDataset*: Test with Supercon dataset;
+* *superconductivity_data.pkl*: Pickle file of UCI Repository data;
 * *Symbolic Regression Equations.ipynb*: Visuzalization of Symbolic Regresion equations.
 
 ## References
