@@ -104,7 +104,7 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         
         df_glm = pd.DataFrame({
             'Feature': self.models_[cluster].params.index,
-            'Feature Importance': self.models_[cluster].params.values
+            'Feature Importance': self.models_[cluster].tvalues
         })
 
         df_glm = df_glm.sort_values(by='Feature Importance', ascending=False)
@@ -120,7 +120,7 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
         if k is not None:
             df_glm = pd.DataFrame({
             'Feature': self.models_[cluster].params.index,
-            'Feature Importance': abs(self.models_[cluster].params).values
+            'Feature Importance': abs(self.models_[cluster].tvalues)
         })
             df_glm = df_glm.sort_values(by='Feature Importance', ascending=False)
             df_glm = df_glm.head(k)
@@ -197,7 +197,7 @@ class Clustering_GLM(BaseEstimator, RegressorMixin):
 
         return shap_values
 
-def cross_validation(X, y, X_test, clusterer, distribution, random_seed=1203, n_splits=5):
+def cross_validation(X, y, clusterer, distribution, random_seed=1203, n_splits=5):
     """Realiza validação cruzada com clusterização"""
 
     kf = KFold(n_splits=n_splits, shuffle=True, random_state=random_seed)
@@ -209,7 +209,7 @@ def cross_validation(X, y, X_test, clusterer, distribution, random_seed=1203, n_
         y_train, y_test = y.iloc[train_idx], y.iloc[test_idx]
 
         model = Clustering_GLM(clusterer=clone(clusterer), distribution=distribution)
-        model.fit(X_train, y_train, X_test)
+        model.fit(X_train, y_train)
 
         y_pred = model.predict(X_test)
 
